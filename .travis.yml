@@ -6,3 +6,10 @@ install:
     - pip install -r requirements/development.txt
 script:
     - pep8 .
+notifications:
+      slack: goubuntu:FcMk2XYzWOXJT0wfCnq4qkeQ
+
+      email: 
+        - feanar729@gmail.com
+        - khwalex@gmail.com
+        - tjalwled12@gmai.com
