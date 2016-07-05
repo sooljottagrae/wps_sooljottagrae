@@ -94,3 +94,6 @@ db.sqlite3
 # swap file
 *.swp
 *.swo
+
+# Django migrations
+migrations
