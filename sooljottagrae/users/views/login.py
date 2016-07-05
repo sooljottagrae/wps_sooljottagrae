@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login
 
+
 class LoginView(View):
 
     def get(self, request, *args, **kwargs):
