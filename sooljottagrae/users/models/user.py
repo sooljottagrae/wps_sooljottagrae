@@ -3,5 +3,5 @@ from django.contrib .auth.models import Users
 
 
 class UserProfile(models.Mosel):
-
+	pass
 
