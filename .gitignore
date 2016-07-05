@@ -90,3 +90,7 @@ ENV/
 
 # Database
 db.sqlite3
+
+# swap file
+*.swp
+*.swo
