@@ -1,7 +1,7 @@
 from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse 
+from django.core.urlresolvers import reverse
 
 
 class SignupView(View):
