@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ </head>
+ <body>
+   {% include "partials/header.html" %}
+   {% include "partials/messages.html" %}
+   <section id="content">
+     {% block content %}{% endblock %}
+   </section>
+   {% include "partials/footer.html" %}  
+ </body>
+
+</html>
