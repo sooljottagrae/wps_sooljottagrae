@@ -141,6 +141,6 @@ STATIC_URL = '/static/'
 
 
 # Auth
-# AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "users.User"
 
 LOGIN_URL = "/login/"

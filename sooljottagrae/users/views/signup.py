@@ -16,12 +16,10 @@ class SignupView(View):
     def post(self, request, *args, **kwargs):
         username = request.POST.get("username")
         password = request.POST.get("password")
-        email = request.POST.get("email")
 
         get_user_model().objects.create_user(
             username=username,
             password=password,
-            email=email,
         )
 
         return redirect(reverse("login"))
