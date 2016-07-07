@@ -2,3 +2,5 @@ Django
 honcho
 gunicorn
 djangorestframework
+djangorestframework-jwt
+
