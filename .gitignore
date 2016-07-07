@@ -91,7 +91,14 @@ ENV/
 # Database
 db.sqlite3
 
+<<<<<<< HEAD
+# Django migrations
+migrations
+
+#swap file
+=======
 # swap file
+>>>>>>> feature/post
 *.swp
 *.swo
 
