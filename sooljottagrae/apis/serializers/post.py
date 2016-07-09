@@ -13,6 +13,7 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
             "title",
             "content",
             "username",
+            "user",
             "created_at",
             "updated_at",
         ]
@@ -29,6 +30,7 @@ class PostListSerializer(serializers.ModelSerializer):
             "title",
             "content",
             "username",
+            "user",
             "created_at",
             "updated_at",
         ]
