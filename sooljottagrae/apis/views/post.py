@@ -6,7 +6,7 @@ from rest_framework.generics import (
 from posts.models import Post
 
 from apis.serializers import (
-        PostListSerializer, 
+        PostListSerializer,
         PostDetailSerializer,
 )
 
