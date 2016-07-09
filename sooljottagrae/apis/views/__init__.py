@@ -1,5 +1,6 @@
 from .post import (
         PostListAPIView,
+        PostCreateAPIView,
         PostDetailAPIView,
         PostUpdateAPIView,
         PostDeleteAPIView,
