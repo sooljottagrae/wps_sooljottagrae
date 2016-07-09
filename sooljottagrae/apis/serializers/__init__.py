@@ -1,2 +1,2 @@
-from .post import PostModelSerializer
+from .post import PostListSerializer, PostDetailSerializer
 from .user import UserModelSerializer
