@@ -8,7 +8,7 @@ class PostModelSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source="user.username", )
 
     class Meta:
-        model = Post 
+        model = Post
         fields = [
             "post_id",
             "title",
