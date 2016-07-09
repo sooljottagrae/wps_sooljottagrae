@@ -12,4 +12,4 @@ class UserModelSerializer(serializers.ModelSerializer):
                 "username",
                 "password",
                 "phonenumber",
-    ]
+                ]

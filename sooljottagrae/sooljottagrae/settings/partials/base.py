@@ -139,7 +139,7 @@ AUTH_USER_MODEL = "users.User"
 
 LOGIN_URL = "/login/"
 
-#API
+# API
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -151,4 +151,3 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
-

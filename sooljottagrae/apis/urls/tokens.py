@@ -9,5 +9,3 @@ urlpatterns = [
         url(r'^verify/$', verify_jwt_token),
         url(r'^refresh/$', refresh_jwt_token),
 ]
-
-
