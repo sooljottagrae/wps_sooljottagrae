@@ -5,14 +5,13 @@ from posts.models import Post
 
 class PostCreateUpdateSerializer(serializers.ModelSerializer):
 
-    username = serializers.CharField(source="user.username", )
+    # username = serializers.CharField(source="user.username", )
 
     class Meta:
         model = Post
         fields = [
             "title",
             "content",
-            "username",
             "user",
             "created_at",
             "updated_at",
