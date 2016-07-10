@@ -1,7 +1,10 @@
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+
 from django.views.generic import View
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 
 class SignupView(View):
@@ -22,4 +25,10 @@ class SignupView(View):
             password=password,
         )
 
-        return redirect(reverse("login"))
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            settings.SIGNUP_SUCCESS_MESSAGE,
+        )
+
+        return redirect(reverse("users:login"))
