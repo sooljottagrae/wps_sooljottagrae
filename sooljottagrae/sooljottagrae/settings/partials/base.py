@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'users',
     'posts',
     'tags',
+    'api',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -155,7 +156,8 @@ PIPELINE = {
 
 
 # Auth
-AUTH_USER_MODEL = "users.User"
+# AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "users.MyUser"
 
 LOGIN_URL = "/login/"
 

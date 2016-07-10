@@ -1,3 +1,3 @@
-from .signup import SignupView
-from .login import LoginView
+from .signup import *
+from .login import *
 from .logout import LogoutView
