@@ -17,7 +17,7 @@ class PostCreateFormView(View):
             )
 
 
-class PostCreateConfirmView(View):
+class PostCreateConfirmFormView(View):
 
     def get(self, request, *args, **kwargs):
         return redirect(revers("posts:create"))
@@ -29,6 +29,6 @@ class PostCreateConfirmView(View):
 
         return render(
             request,
-            "posts/confirms.html",
+            "posts/confirm.html",
             context={},
         )
