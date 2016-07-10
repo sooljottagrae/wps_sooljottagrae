@@ -40,7 +40,7 @@ class PostUpdateAPIView(RetrieveUpdateAPIView):
 class PostDetailAPIView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
-    pk = "post_id"
+    lookup_field = "pk"
 
 
 class PostDeleteAPIView(DestroyAPIView):
