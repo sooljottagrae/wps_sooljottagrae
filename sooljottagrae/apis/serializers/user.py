@@ -1,5 +1,6 @@
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 
 from rest_framework.serializers import (
         CharField,
@@ -38,7 +39,7 @@ class UserCreateSerializer(ModelSerializer):
 
 class UserLoginSerializer(ModelSerializer):
     token = CharField(allow_blank=True, read_only=True)
-    username = CharField()
+    username = CharField(required=False, allow_blank=True)
 
     class Meta:
         model = User
@@ -48,6 +49,28 @@ class UserLoginSerializer(ModelSerializer):
                 'token',
         ]
         extra_kwargs = {"password": {"write_only": True}}
+
+    def validate(self, data):
+        user_obj = None
+        username = data.get("username", None)
+        password = data["password"]
+        if not username:
+            raise ValidationError("로그인하려면 사용자 이름을 입력하세요")
+
+        user = User.objects.filter(
+                Q(username=username)
+                ).distinct()
+        if user.exists() and user.count() == 1:
+            user_obj = user.first()
+        else:
+            raise ValidationError("유효하지 않은 사용자 이름 또는 비밀번호 입니다. 다시 시도해 주세요.")
+        
+        if user_obj:
+            if not user_obj.check_password(password):
+                raise ValidationError("유효하지 않은 비밀번호입니다. 다시 시도해 주세요")
+        
+        data["token"] = "SOME RANDOM TOKEN"    
+        return data
 
 
 class UserModelSerializer(ModelSerializer):
