@@ -64,12 +64,12 @@ class UserLoginSerializer(ModelSerializer):
             user_obj = user.first()
         else:
             raise ValidationError("유효하지 않은 사용자 이름 또는 비밀번호 입니다. 다시 시도해 주세요.")
-        
+
         if user_obj:
             if not user_obj.check_password(password):
                 raise ValidationError("유효하지 않은 비밀번호입니다. 다시 시도해 주세요")
-        
-        data["token"] = "SOME RANDOM TOKEN"    
+
+        data["token"] = "SOME RANDOM TOKEN"
         return data
 
 
