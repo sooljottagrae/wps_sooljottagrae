@@ -1,10 +1,10 @@
 from django.db import models
-from users.models import User
+from users.models import MyUser
 
 
 class Post(models.Model):
 
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(MyUser)
     post_id = models.CharField(
         max_length=20,
     )
