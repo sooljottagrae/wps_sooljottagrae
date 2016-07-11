@@ -1,9 +1,29 @@
-from rest_framework import serializers
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth import get_user_model
 
-from users.models import User
+from rest_framework.serializers import (
+        HyperlinkedIdentityField,
+        ModelSerializer,
+        SerializerMethodField,
+        ValidationError,
+)
+
+User = get_user_model()
 
 
-class UserModelSerializer(serializers.ModelSerializer):
+class UserCreateSerializer(ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "password",
+            "phonenumber",
+        ]
+        extra_kwargs = {"password": {"write_only": True}}
+
+
+class UserModelSerializer(ModelSerializer):
 
     class Meta:
         model = User
@@ -12,4 +32,4 @@ class UserModelSerializer(serializers.ModelSerializer):
                 "username",
                 "password",
                 "phonenumber",
-                ]
+        ]

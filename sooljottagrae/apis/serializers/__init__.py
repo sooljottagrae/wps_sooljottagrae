@@ -4,4 +4,7 @@ from .post import (
         PostDetailSerializer,
 )
 
-from .user import UserModelSerializer
+from .user import (
+        UserCreateSerializer,
+        UserModelSerializer,
+)

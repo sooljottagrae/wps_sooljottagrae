@@ -6,4 +6,8 @@ from .post import (
         PostDeleteAPIView,
 )
 
-from .user import UserListAPIView, UserDetailAPIView
+from .user import (
+        UserCreateAPIView,
+        UserListAPIView,
+        UserDetailAPIView,
+)
