@@ -8,6 +8,7 @@ from .post import (
 
 from .user import (
         UserCreateAPIView,
+        UserLoginAPIView,
         UserListAPIView,
         UserDetailAPIView,
 )

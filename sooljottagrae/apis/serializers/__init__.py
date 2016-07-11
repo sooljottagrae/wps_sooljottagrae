@@ -6,5 +6,6 @@ from .post import (
 
 from .user import (
         UserCreateSerializer,
+        UserLoginSerializer,
         UserModelSerializer,
 )
