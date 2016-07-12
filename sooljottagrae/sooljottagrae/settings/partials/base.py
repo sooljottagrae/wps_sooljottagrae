@@ -14,6 +14,7 @@ import os
 
 import dj_database_url
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 PROJECT_ROOT_DIR = os.path.dirname(BASE_DIR)
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
     'pipeline',
 
     'users',
@@ -163,6 +165,19 @@ PIPELINE = {
 AUTH_USER_MODEL = "users.MyUser"
 
 LOGIN_URL = "/login/"
+
+# API
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
 
 SIGNUP_SUCCESS_MESSAGE = "성공적으로 회원가입 되었습니다."
 LOGIN_SUCCESS_MESSAGE = "성공적으로 로그인 되었습니다."

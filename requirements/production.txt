@@ -1,6 +1,8 @@
 Django
 honcho
 gunicorn
+djangorestframework
+djangorestframework-jwt
 django-pipeline
 python-social-auth
 
