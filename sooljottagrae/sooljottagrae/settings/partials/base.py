@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+import dj_database_url
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 PROJECT_ROOT_DIR = os.path.dirname(BASE_DIR)
@@ -39,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
     'pipeline',
+    'storages',
 
     'users',
     'posts',
@@ -84,13 +89,14 @@ WSGI_APPLICATION = 'sooljottagrae.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# dj-databse-url
+# https://github.com/kennethreitz/dj-database-url
 
+
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -156,10 +162,22 @@ PIPELINE = {
 
 
 # Auth
-# AUTH_USER_MODEL = "users.User"
-AUTH_USER_MODEL = "users.MyUser"
+AUTH_USER_MODEL = "users.User"
 
 LOGIN_URL = "/login/"
+
+# API
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+}
 
 SIGNUP_SUCCESS_MESSAGE = "성공적으로 회원가입 되었습니다."
 LOGIN_SUCCESS_MESSAGE = "성공적으로 로그인 되었습니다."

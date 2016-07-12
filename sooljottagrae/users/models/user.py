@@ -27,7 +27,7 @@ class MyUserManager(BaseUserManager):
         return u
 
 
-class MyUser(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name='email',
         max_length=255,
@@ -39,11 +39,6 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         blank=False,
         unique=True,
         default='')
-    avatar = models.ImageField(
-        null=True,
-        blank=True,
-        upload_to='image/avatar/',
-    )
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

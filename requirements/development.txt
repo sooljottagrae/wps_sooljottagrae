@@ -3,3 +3,6 @@ pep8
 ipython[all]
 django-debug-toolbar
 django-extensions
+dj-database-url
+django-storages-redux
+boto
