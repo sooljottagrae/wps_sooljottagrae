@@ -1,0 +1,13 @@
+{% extends "post_base.html" %}
+
+{% block content %}
+<h1>new post</h1>
+<section>
+<form action="{% url "posts:confirm" %}" method="POST">
+    {% csrf_token %}
+      <input type="text" name="title" placeholder="Title" required>
+      <input type="image" placeholder="Upload Your Photo" required>
+      <textarea name="content" placeholder="Content" required></textarea>
+      <input type="submit">
+</section>
+{% endblock %}

@@ -17,6 +17,10 @@ class Post(models.Model):
         max_length=300,
     )
 
+    image = models.ImageField(
+        blank=True,
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

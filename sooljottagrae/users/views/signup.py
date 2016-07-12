@@ -1,25 +1,40 @@
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+
 from django.views.generic import View
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.conf import settings
+from django.http import HttpResponseRedirect
+from users.forms import SignupForm
 
 
 class SignupView(View):
 
     def get(self, request, *args, **kwargs):
+        signupform = SignupForm()
         return render(
             request,
             "users/signup.html",
-            context={},
+            {"signupform": signupform},
         )
 
     def post(self, request, *args, **kwargs):
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+        signupform = SignupForm()
+        if request.method == "POST":
+            signupform = SignupForm(request.POST, request.FILES)
+            if signupform.is_valid():
+                user = signupform.save(commit=False)
+                user.email = signupform.cleaned_data['email']
+                user.avatar = signupform.clean_avatar()
+                user.save()
 
-        get_user_model().objects.create_user(
-            username=username,
-            password=password,
+                return HttpResponseRedirect(
+                        reverse("users:login")
+                )
+
+        return render(
+            request,
+            "users/signup.html",
+            {"signupform": signupform},
         )
-
-        return redirect(reverse("login"))

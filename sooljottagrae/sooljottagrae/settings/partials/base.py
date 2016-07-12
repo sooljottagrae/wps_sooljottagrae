@@ -43,10 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'pipeline',
 
     'users',
     'posts',
     'tags',
+    'api',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -131,11 +133,36 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "sooljottagrae", "static"),
+]
+
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, "dist", "static")
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+PIPELINE = {
+    'STYLESHEETS': {
+        'sooljottagrae': {
+            'source_filenames': (
+              'css/application.css',
+              'css/partials/*.css',
+            ),
+            'output_filename': 'css/sooljottagrae.css',
+        }
+    }
+}
 
 
 # Auth
-AUTH_USER_MODEL = "users.User"
+# AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "users.MyUser"
 
 LOGIN_URL = "/login/"
 
@@ -147,7 +174,11 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 }
+
+SIGNUP_SUCCESS_MESSAGE = "성공적으로 회원가입 되었습니다."
+LOGIN_SUCCESS_MESSAGE = "성공적으로 로그인 되었습니다."
+LOGOUT_SUCCESS_MESSAGE = "성공적으로 로그아웃 되었습니다."

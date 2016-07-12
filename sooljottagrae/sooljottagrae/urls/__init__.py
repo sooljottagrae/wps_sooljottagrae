@@ -19,12 +19,11 @@ from django.contrib import admin
 from users.views import *
 from apis.views import *
 
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^signup/', SignupView.as_view(), name="signup"),
-    url(r'^login/', LoginView.as_view(), name="login"),
-    url(r'^logout/', LogoutView.as_view(), name="logout"),
+
+    url(r'^user/', include("users.urls", namespace="users")),
+    url(r'^posts/', include("posts.urls", namespace="posts")),
 
     url(r'^api/', include("apis.urls", namespace="apis")),
 ]
