@@ -26,7 +26,6 @@ class SignupView(View):
             if signupform.is_valid():
                 user = signupform.save(commit=False)
                 user.email = signupform.cleaned_data['email']
-                user.avatar = signupform.clean_avatar()
                 user.save()
 
                 return HttpResponseRedirect(

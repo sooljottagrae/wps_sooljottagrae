@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from users.views import *
+from apis.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include("users.urls", namespace="users")),
-    url(r'^api/', include("sooljottagrae.urls.api", namespace="api")),
+
+    url(r'^user/', include("users.urls", namespace="users")),
+    url(r'^posts/', include("posts.urls", namespace="posts")),
+
+    url(r'^api/', include("apis.urls", namespace="apis")),
 ]
