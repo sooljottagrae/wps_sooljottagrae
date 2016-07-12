@@ -13,6 +13,5 @@ def update(request, post_id):
     post.content = content
     post.image = image
     post.save()
-    
-    return redirect(post)
 
+    return redirect(post)

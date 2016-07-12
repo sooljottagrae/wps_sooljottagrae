@@ -32,14 +32,14 @@ class Post(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     is_public = models.BooleanField(
         default=True,
     )
-    
+
     def __str__(self):
         return self.title
-    
+
     def get_absolute_url(self):
         return reverse(
             "posts:detail",
@@ -47,7 +47,7 @@ class Post(models.Model):
                 "pk": self.id,
             }
         )
-    
+
     def get_update_url(self):
         return reverse(
             "posts:update",
@@ -55,9 +55,8 @@ class Post(models.Model):
                 "post_id": self.id,
             }
         )
-    
+
     def get_image_url(self):
         if self.image:
             return self.image.url
         return "http://placehold.it/300x200"
-
