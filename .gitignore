@@ -90,3 +90,15 @@ ENV/
 
 # Database
 db.sqlite3
+
+# Django migrations
+migrations
+
+# db
+db.sqlite3
+
+# MAKEFILE
+Makefile
+
+# backup file
+backup
