@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Edit Post</h1>
+{% include "posts/form.html" with action=post.get_update_url %}
+{% endblock %}

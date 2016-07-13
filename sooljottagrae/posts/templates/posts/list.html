@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+Post List
+{% endblock %}
+
+{% block content %}
+<h1>Post List</h1>
+<ul>
+{% for post in posts %}
+    <li>
+    <img src="{{ post.get_image_url }}" alt="{{ post.title }}">
+    </li>
+    <li><a href="{% url "posts:detail" pk=post.id %}"><h4>{{ post.title }}</h4></a></li>
+    <li><p>{{ post.content }}</p></li>
+{% endfor %}
+</ul>
+{% endblock %}
+
