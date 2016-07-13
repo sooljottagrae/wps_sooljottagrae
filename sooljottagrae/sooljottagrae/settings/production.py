@@ -11,7 +11,7 @@ ALLOWED_HOSTS = [
 STATICFILES_STORAGES = 'sooljottagrae.storage.S3PipelieCachedStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
-FILES_STORAGE = 'fastagram.storage.S3PipelineCachedStorage'
+FILES_STORAGE = 'sooljottagrae.storage.S3PipelineCachedStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")

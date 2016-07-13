@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.permissions import (
         AllowAny,
+        IsAdminUser,
     )
 
 from rest_framework.filters import (
@@ -55,8 +56,10 @@ class UserLoginAPIView(APIView):
 class UserListAPIView(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
+    permission_classes = [IsAdminUser]
 
 
 class UserDetailAPIView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
+    permission_classes = [IsOwnerOrReadOnly]
