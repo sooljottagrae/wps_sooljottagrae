@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
-from users.models import MyUser
+from users.models import User
 
 
 class PostManager(models.Manager):
@@ -12,7 +12,7 @@ class PostManager(models.Manager):
 class Post(models.Model):
 
     objects = PostManager()
-    user = models.ForeignKey(MyUser)
+    user = models.ForeignKey(User)
     post_id = models.CharField(
         max_length=20,
     )
