@@ -7,7 +7,6 @@ from posts.models import Post
 
 
 class PostCommentListCreateAPIView(ListAPIView):
-    serializer_class = CommentModelSerializer
 
     def get_queryset(self):
         post = Post.objects.get(hash_id=self.kwargs.get("slug"))
