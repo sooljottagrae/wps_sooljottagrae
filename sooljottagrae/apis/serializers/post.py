@@ -17,7 +17,8 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
 
 class PostListSerializer(serializers.ModelSerializer):
 
-    username = serializers.CharField(source="user.username", )
+    email = serializers.CharField(source="user.email", )
+    nickname = serializers.CharField(source="user.nickname", )
 
     class Meta:
         model = Post
@@ -25,7 +26,8 @@ class PostListSerializer(serializers.ModelSerializer):
             "pk",
             "title",
             "content",
-            "username",
+            "email",
+            "nickname",
             "user",
             "created_at",
             "updated_at",
@@ -34,7 +36,8 @@ class PostListSerializer(serializers.ModelSerializer):
 
 class PostDetailSerializer(serializers.ModelSerializer):
 
-    username = serializers.CharField(source="user.username", )
+    email = serializers.CharField(source="user.email", )
+    nickname = serializers.CharField(source="user.nickname", )
 
     class Meta:
         model = Post
@@ -42,7 +45,8 @@ class PostDetailSerializer(serializers.ModelSerializer):
             "pk",
             "title",
             "content",
-            "username",
+            "email",
+            "nickname",
             "created_at",
             "updated_at",
         ]
