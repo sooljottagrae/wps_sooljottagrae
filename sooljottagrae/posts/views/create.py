@@ -1,34 +1,17 @@
-from django.core.urlresolvers import reverse
-from django.views.generic import View
-from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView
+from django.shortcuts import redirect
+
+from .base import PostBaseView
 
 
-class PostCreateFormView(View):
+class PostCreateView(PostBaseView, CreateView):
 
-    def get(self, request, *args, **kwargs):
-            return render(
-                request,
-                "posts/new.html",
-                context={
-                    "title": title,
-                    "content": content,
-                    "image": image,
-                },
-            )
+    fields = [
+        'title',
+        'content',
+        'image',
+    ]
 
-
-class PostCreateConfirmFormView(View):
-
-    def get(self, request, *args, **kwargs):
-        return redirect(revers("posts:create"))
-
-    def post(self, request, *args, **kwargs):
-        title = request.POST.get("title")
-        image = request.POST.get("image")
-        content = request.POST.get("content")
-
-        return render(
-            request,
-            "posts/confirm.html",
-            context={},
-        )
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(PostCreateView, self).form_valid(form)
