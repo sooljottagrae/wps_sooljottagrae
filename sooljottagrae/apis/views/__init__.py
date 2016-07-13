@@ -12,3 +12,7 @@ from .user import (
         UserListAPIView,
         UserDetailAPIView,
 )
+
+from .comment import(
+    PostCommentListCreateAPIView
+)
