@@ -46,11 +46,12 @@ INSTALLED_APPS = [
     'pipeline',
     'storages',
     'rest_framework_swagger',
+    'social.apps.django_app.default',
 
     'users',
     'posts',
     'tags',
-    'api',
+    # 'apis',
 ]
 
 MIDDLEWARE_CLASSES = [
