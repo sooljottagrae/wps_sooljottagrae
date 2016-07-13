@@ -1,11 +1,14 @@
 from django.db import models
 
-from posts.models import Post
-
 
 class Tag(models.Model):
 
+    class Meta:
+        verbose_name = 'Category'
+        ordering = ['name']
+
     name = models.CharField(
+            verbose_name = 'Category',
             max_length=20,
             )
 
