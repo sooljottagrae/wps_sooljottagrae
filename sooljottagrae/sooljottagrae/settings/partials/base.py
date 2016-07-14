@@ -169,7 +169,11 @@ PIPELINE = {
 # Auth
 AUTH_USER_MODEL = "users.User"
 
-LOGIN_URL = "/login/"
+LOGIN_URL = "/user/login/"
+
+SIGNUP_SUCCESS_MESSAGE = "성공적으로 회원가입 되었습니다."
+LOGIN_SUCCESS_MESSAGE = "성공적으로 로그인 되었습니다."
+LOGOUT_SUCCESS_MESSAGE = "성공적으로 로그아웃 되었습니다."
 
 # API
 
@@ -192,9 +196,7 @@ AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.ModelBackend',
 ]
 
-SIGNUP_SUCCESS_MESSAGE = "성공적으로 회원가입 되었습니다."
-LOGIN_SUCCESS_MESSAGE = "성공적으로 로그인 되었습니다."
-LOGOUT_SUCCESS_MESSAGE = "성공적으로 로그아웃 되었습니다."
+SOCIAL_AUTH_URL_NAMESPACE = 'users:social'
 
 # Swagger for API docs settings
 

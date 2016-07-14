@@ -27,6 +27,4 @@ urlpatterns = [
 
     url(r'^api/', include("apis.urls", namespace="apis")),
     url(r'docs/', include('rest_framework_swagger.urls')),
-
-    url('', include('social.apps.django_app.urls', namespace='social')),
 ]
