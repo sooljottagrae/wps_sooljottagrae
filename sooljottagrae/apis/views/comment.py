@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from posts.models import Post
-# from posts.serializers import CommentModelSerializer
+from apis.serializers import CommentModelSerializer
 
 
 class PostCommentListCreateAPIView(ListAPIView):

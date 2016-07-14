@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 
 from posts.views import *
 
@@ -11,4 +11,9 @@ urlpatterns = [
         url(r'^(?P<post_id>\d+)/edit/$', edit, name="edit"),
         url(r'^(?P<post_id>\d+)/update/$', update, name="update"),
         url(r'^(?P<post_id>\d+)/delete/$', delete, name="delete"),
+
+        # Comments
+        url(r'^posts/', include([
+            url(r'^(?P<slug>\w+)/comments/$', PostCommentCreateView.as_view(), name="comments"),
+        ], namespace="posts")),
 ]
