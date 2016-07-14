@@ -13,6 +13,7 @@ class Post(models.Model):
 
     objects = PostManager()
     user = models.ForeignKey(User)
+
     post_id = models.CharField(
         max_length=20,
     )
