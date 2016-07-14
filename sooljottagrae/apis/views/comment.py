@@ -22,7 +22,7 @@ class PostCommentListCreateAPIView(ListAPIView):
         return Response(
             status=status.HTTP_201_CREATED,
             data={
-                "username": request.user.username,
+                "nickname": request.user.nickname,
                 "content": comment.content,
             },
         )
