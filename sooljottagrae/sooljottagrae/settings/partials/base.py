@@ -199,7 +199,7 @@ AUTHENTICATION_BACKENDS = [
         'social.backends.facebook.FacebookOAuth2',
 
         'rest_framework_social_oauth2.backends.DjangoOAuth2',
-        
+
         'django.contrib.auth.backends.ModelBackend',
 ]
 
