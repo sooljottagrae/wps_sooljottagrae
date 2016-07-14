@@ -12,5 +12,3 @@ class Tag(models.Model):
     drink = models.CharField(
             max_length=20,
             )
-
-

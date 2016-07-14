@@ -16,9 +16,6 @@ class Post(models.Model):
     user = models.ForeignKey(User)
     tag = models.ForeignKey(
         Tag,
-        verbose_name='Category',
-        blank=True,
-        null=True,
         )
 
     post_id = models.CharField(
