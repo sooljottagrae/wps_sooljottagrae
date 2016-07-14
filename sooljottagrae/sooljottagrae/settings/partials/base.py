@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'storages',
     'rest_framework_swagger',
     'social.apps.django_app.default',
+    'oauth2_provider',
+    'rest_framework_social_oauth2',
 
     'users',
     'posts',
@@ -185,6 +187,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
 }
 
@@ -193,6 +198,8 @@ REST_FRAMEWORK = {
 AUTHENTICATION_BACKENDS = [
         'social.backends.facebook.FacebookOAuth2',
 
+        'rest_framework_social_oauth2.backends.DjangoOAuth2',
+        
         'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -227,6 +234,9 @@ SOCIAL_AUTH_UID_LENGTH = 255
 SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 255
 SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 255
 SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 255
+
+PROPRIETARY_BACKEND_NAME = "Facebook"
+
 # Swagger for API docs settings
 
 SWAGGER_SETTINGS = {
