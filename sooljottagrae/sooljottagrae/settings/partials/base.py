@@ -201,6 +201,32 @@ SOCIAL_AUTH_URL_NAMESPACE = 'users:social'
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get("SOCIAL_AUTH_FACEBOOK_KEY")
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get("SOCIAL_AUTH_FACEBOOK_SECRET")
 
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    # 'social.pipeline.user.get_username',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.social_auth.associate_by_email',
+    'users.social.create_user',
+    'users.social.update_avatar',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/user/login/"
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+        'fields': 'id, name, email, age_range'
+        }
+SOCIAL_AUTH_UID_LENGTH = 255
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 255
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 255
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 255
 # Swagger for API docs settings
 
 SWAGGER_SETTINGS = {

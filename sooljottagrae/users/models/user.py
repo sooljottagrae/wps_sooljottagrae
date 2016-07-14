@@ -35,10 +35,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     nickname = models.CharField(
         u'닉네임',
-        max_length=10,
+        max_length=50,
         blank=False,
         unique=True,
         default='')
+    
+    avatar = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to='sooljottagrae/static/media/',
+    )
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
