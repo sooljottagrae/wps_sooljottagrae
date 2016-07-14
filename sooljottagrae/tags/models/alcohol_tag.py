@@ -10,6 +10,6 @@ class AlcoholTag(models.Model):
             )
 
     post_set = models.ManyToManyField(Post)
-    
+
     def __str__(self):
         return self.alcohol_name
