@@ -2,7 +2,6 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from users.models import User
-from tags.models import Tag
 
 
 class PostManager(models.Manager):
@@ -14,9 +13,6 @@ class Post(models.Model):
 
     objects = PostManager()
     user = models.ForeignKey(User)
-    tag = models.ForeignKey(
-        Tag,
-        )
 
     post_id = models.CharField(
         max_length=20,
