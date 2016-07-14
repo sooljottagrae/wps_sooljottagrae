@@ -39,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=False,
         unique=True,
         default='')
-    
+
     avatar = models.ImageField(
         null=True,
         blank=True,
