@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+
+<ul>
+  <li><a href="{% url "posts:edit" post_id=post.id %}">Edit</a></li>
+  <li><a href="{% url "posts:delete" post_id=post.id %}">Delete</a></li>
+</ul>
+
+
+<h2>Comments ( {{ post.comment_set.count }} )</h2>
+<ul>
+  {% for post_comment in post.comment_set.all %}
+    {% if comment == post_comment %}
+      <li>
+        <form action="{% url "posts:comments-update" post_id=post.id comment_id=comment.id %}" method="POST">
+          {% csrf_token %}
+          <input type="text" name="content" value="{{ comment.content }}">
+          <input type="submit" value="수정">
+        </form>
+      </li>
+    {% else %}
+      <li id="comment-{{ post_comment.id }}">{{ post_comment.content }}</li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+
+<h2>New Comment</h2>
+<form action="/posts/{{ post.id }}/comments/create/" method="POST">
+  {% csrf_token %}
+  <input type="text" name="content" placeholder="댓글">
+  <input type="submit" value="댓글 달기">
+</form>
+
+{% endblock %}

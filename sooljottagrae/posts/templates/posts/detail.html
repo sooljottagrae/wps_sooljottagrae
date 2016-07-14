@@ -11,22 +11,11 @@
     <li><a href="{% url "posts:delete" post_id=post.id %}">Delete</a></li>
 </ul>    
 
+<h2>New Comment</h2>
+<form action="/posts/{{ post.id }}/comments/create/" method="POST">
+  {% csrf_token %}
+  <input type="text" name="content" placeholder="댓글">
+  <input type="submit" value="댓글 달기">
+</form>
 
-<section id="comments-section" data-post-slug="{{ post.hash_id }}">
-  <h3>Comments ( <span id="comments-count"></span> )</h3>
-
-  <ul>
-  </ul>
-
-  <form>
-    <input type="text" name="content" placeholder="댓글" required>
-    <input type="submit" value="댓글 달기">
-  </form>
-</section>
-{% endblock %}
-
-{% block custom_javascripts %}
-  {% javascript "posts" %}
-
-{% endblock %}
-
+{% endblock%}

@@ -17,15 +17,15 @@ class PostCommentCreateView(CommentBaseView, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.post = Post.objects.get(
-            id=self.kwargs.get("nickname"),
+            id=self.kwargs.get("post_id"),
         )
 
         return super(PostCommentCreateView, self).form_valid(form)
 
 
-def comments_edit(request, email, nickname):
-    post = Post.objects.get(id=nickname)
-    comment = post.comment_set.get(id=nickname)
+def comments_edit(request, post_id, comment_id):
+    post = Post.objects.get(id=post_id)
+    comment = post.comment_set.get(id=comment_id)
 
     return render(
         request,
@@ -37,9 +37,9 @@ def comments_edit(request, email, nickname):
     )
 
 
-def comments_update(request, email, nickname):
-    post = Post.objects.get(id=nickname)
-    comment = post.comment_set.get(id=nickname)
+def comments_update(request, post_id, comment_id):
+    post = Post.objects.get(id=post_id)
+    comment = post.comment_set.get(id=comment_id)
 
     content = request.POST.get("content")
     comment.content = content
@@ -48,9 +48,9 @@ def comments_update(request, email, nickname):
     return redirect(comment)
 
 
-def comments_delete(request, email, nickname):
-    post = Post.objects.get(id=nickname)
-    comment = post.comment_set.get(id=nickname)
+def comments_delete(request, post_id, comment_id):
+    post = Post.objects.get(id=post_id)
+    comment = post.comment_set.get(id=comment_id)
 
     comment.delete()
     return redirect(post)

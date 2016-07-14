@@ -4,7 +4,6 @@ from users.models import User
 
 
 class Comment(models.Model):
-
     user = models.ForeignKey(User)
     post = models.ForeignKey("Post")
 
