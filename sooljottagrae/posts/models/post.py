@@ -15,8 +15,9 @@ class Post(models.Model):
     objects = PostManager()
     user = models.ForeignKey(User)
     tag = models.ForeignKey(
-	Tag,
-	verbose_name='Category',
+        Tag,
+        verbose_name='Category',
+        blank=True,
         null=True,
         )
 
