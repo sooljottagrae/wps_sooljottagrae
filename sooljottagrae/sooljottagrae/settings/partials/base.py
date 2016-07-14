@@ -187,8 +187,9 @@ REST_FRAMEWORK = {
 # Social Authentication
 
 AUTHENTICATION_BACKENDS = [
-        'django.contrib.auth.backends.ModelBackend',
+        'social.backends.facebook.FacebookOAuth2',
 
+        'django.contrib.auth.backends.ModelBackend',
 ]
 
 SIGNUP_SUCCESS_MESSAGE = "성공적으로 회원가입 되었습니다."
