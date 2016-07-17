@@ -19,7 +19,7 @@ class PostCreateUpdateSerializer(ModelSerializer):
         ]
 
 post_detail_url = HyperlinkedIdentityField(
-        view_name='posts:detail',
+        view_name='apis:posts:detail',
         lookup_field='pk',
 )
 
