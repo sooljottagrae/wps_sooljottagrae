@@ -1,16 +1,28 @@
-from rest_framework import serializers
+from rest_framework.serializers import (
+        HyperlinkedIdentityField,
+        ModelSerializer,
+        SerializerMethodField,
+        CharField,
+)
 
 from posts.models import Comment
 
 
-class CommentModelSerializer(serializers.ModelSerializer):
+class CommentModelSerializer(ModelSerializer):
 
-    username = serializers.CharField(source="user.username", )
+    nickname = SerializerMethodField()
 
     class Meta:
         model = Comment
         fields = [
-            "username",
+            "id",
+            "post",
+            "absolute_url",
 
+            "user",
+            "nickname",
             "content",
         ]
+
+    def get_user(self, obj):
+        return str(obj.user.nickname)
