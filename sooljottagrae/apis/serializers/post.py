@@ -83,6 +83,6 @@ class PostDetailSerializer(ModelSerializer):
         except:
             image = None
         return image
-    
+
     def get_html(self, obj):
         return obj.get_markdown()
