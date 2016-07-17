@@ -1,9 +1,13 @@
-from rest_framework import serializers
+from rest_framework.serializers import (
+        ModelSerializer,
+        HyperlinkedIdentityField,
+        CharField,
+)
 
 from posts.models import Post
 
 
-class PostCreateUpdateSerializer(serializers.ModelSerializer):
+class PostCreateUpdateSerializer(ModelSerializer):
 
     class Meta:
         model = Post
@@ -14,15 +18,22 @@ class PostCreateUpdateSerializer(serializers.ModelSerializer):
             "updated_at",
         ]
 
+post_detail_url = HyperlinkedIdentityField(
+        view_name='posts:detail',
+        lookup_field='pk',
+)
 
-class PostListSerializer(serializers.ModelSerializer):
 
-    email = serializers.CharField(source="user.email", )
-    nickname = serializers.CharField(source="user.nickname", )
+class PostListSerializer(ModelSerializer):
+
+    email = CharField(source="user.email", )
+    nickname = CharField(source="user.nickname", )
+    url = post_detail_url
 
     class Meta:
         model = Post
         fields = [
+            "url",
             "pk",
             "title",
             "content",
@@ -34,14 +45,16 @@ class PostListSerializer(serializers.ModelSerializer):
         ]
 
 
-class PostDetailSerializer(serializers.ModelSerializer):
+class PostDetailSerializer(ModelSerializer):
 
-    email = serializers.CharField(source="user.email", )
-    nickname = serializers.CharField(source="user.nickname", )
+    email = CharField(source="user.email", )
+    nickname = CharField(source="user.nickname", )
+    url = post_detail_url
 
     class Meta:
         model = Post
         fields = [
+            "url",
             "pk",
             "title",
             "content",
