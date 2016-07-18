@@ -56,6 +56,7 @@ class CommentCreateAPIView(APIView):
             },
         )
 
+
 class CommentDetailAPIView(RetrieveAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
