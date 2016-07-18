@@ -34,6 +34,7 @@ class PostListSerializer(ModelSerializer):
     nickname = CharField(source="user.nickname", )
     url = post_detail_url
     user = SerializerMethodField()
+    comments_number = SerializerMethodField()
 
     class Meta:
         model = Post
@@ -47,10 +48,16 @@ class PostListSerializer(ModelSerializer):
             "user",
             "created_at",
             "updated_at",
+            "comments_number",
         ]
 
     def get_user(self, obj):
         return str(obj.user.email)
+
+    def get_comments_number(self, obj):
+        if obj.comment_set.all():
+            return obj.comment_set.count()
+        return 0
 
 
 class PostDetailSerializer(ModelSerializer):

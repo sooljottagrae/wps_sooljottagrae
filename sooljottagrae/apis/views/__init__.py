@@ -14,7 +14,7 @@ from .user import (
 )
 
 from .comment import(
-    PostCommentListCreateAPIView,
+    CommentCreateAPIView,
     CommentDetailAPIView,
     CommentListAPIView,
 )

@@ -11,5 +11,6 @@ from .user import (
 )
 
 from .comment import(
-        CommentSerializer
+        CommentSerializer,
+	CommentCreateSerializer,
 )

@@ -5,6 +5,7 @@ from rest_framework.filters import (
         OrderingFilter,
 )
 
+from rest_framework.views import APIView
 from rest_framework.generics import (
         ListAPIView,
         CreateAPIView,
@@ -28,20 +29,20 @@ from apis.views.pagination import PostPageNumberPagination
 from posts.models import Comment
 from posts.models import Post
 
-from apis.serializers import CommentSerializer
+from apis.serializers import (
+        CommentSerializer,
+        CommentCreateSerializer,
+)
 
 from rest_framework.response import Response
 from rest_framework import status
 
 
-class PostCommentListCreateAPIView(ListAPIView):
-
-    def get_queryset(self):
-        post = Post.objects.get(hash_id=self.kwargs.get("slug"))
-        return post.comment_set.all()
+class CommentCreateAPIView(APIView):
+    serializer_class = CommentCreateSerializer
 
     def post(self, request, *args, **kwargs):
-        post = Post.objects.get(hash_id=self.kwargs.get("slug"))
+        post = Post.objects.get(id=self.kwargs.get("pk"))
         comment = post.comment_set.create(
             content=request.POST.get("content"),
             user=request.user,
@@ -54,7 +55,6 @@ class PostCommentListCreateAPIView(ListAPIView):
                 "content": comment.content,
             },
         )
-
 
 class CommentDetailAPIView(RetrieveAPIView):
     queryset = Comment.objects.all()
