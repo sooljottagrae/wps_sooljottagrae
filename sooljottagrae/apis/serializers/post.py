@@ -5,7 +5,9 @@ from rest_framework.serializers import (
         CharField,
 )
 
-from posts.models import Post
+from .comment import CommentSerializer
+
+from posts.models import Post, Comment
 
 
 class PostCreateUpdateSerializer(ModelSerializer):
@@ -58,6 +60,7 @@ class PostDetailSerializer(ModelSerializer):
     url = post_detail_url
     user = SerializerMethodField()
     image = SerializerMethodField()
+    comments = SerializerMethodField()
 
     class Meta:
         model = Post
@@ -72,6 +75,7 @@ class PostDetailSerializer(ModelSerializer):
             "nickname",
             "created_at",
             "updated_at",
+            "comments",
         ]
 
     def get_user(self, obj):
@@ -84,5 +88,7 @@ class PostDetailSerializer(ModelSerializer):
             image = None
         return image
 
-    def get_html(self, obj):
-        return obj.get_markdown()
+    def get_comments(self, obj):
+        comment_queryset = obj.comment_set.all()
+        comments = CommentSerializer(comment_queryset, many=True).data
+        return comments
