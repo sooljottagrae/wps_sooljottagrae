@@ -9,7 +9,7 @@ from rest_framework.generics import (
         ListAPIView,
         CreateAPIView,
         DestroyAPIView,
-        ListAPIView, 
+        ListAPIView,
         UpdateAPIView,
         RetrieveAPIView,
         RetrieveUpdateAPIView,
@@ -34,7 +34,6 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-
 class PostCommentListCreateAPIView(ListAPIView):
 
     def get_queryset(self):
@@ -56,6 +55,7 @@ class PostCommentListCreateAPIView(ListAPIView):
             },
         )
 
+
 class CommentDetailAPIView(RetrieveAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
@@ -70,10 +70,10 @@ class CommentListAPIView(ListAPIView):
     def get_queryset(self, *args, **kwargs):
         queryset_list = Comment.objects.all()
         query = self.request.GET.get("q")
-        
+
         if query:
             queryset_list = queryset_list.filter(
-                    Q(content__icontains=query)|
+                    Q(content__icontains=query) |
                     Q(user__email__icontains=query)
                     ).distinct()
         return queryset_list

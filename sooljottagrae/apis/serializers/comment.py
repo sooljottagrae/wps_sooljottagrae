@@ -10,7 +10,7 @@ from posts.models import Comment
 
 class CommentSerializer(ModelSerializer):
     user = SerializerMethodField()
-    
+
     class Meta:
         model = Comment
         fields = [
