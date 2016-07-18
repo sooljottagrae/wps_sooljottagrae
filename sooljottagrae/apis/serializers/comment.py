@@ -8,19 +8,16 @@ from rest_framework.serializers import (
 from posts.models import Comment
 
 
-class CommentModelSerializer(ModelSerializer):
-
-    nickname = SerializerMethodField()
-
+class CommentSerializer(ModelSerializer):
+    user = SerializerMethodField()
+    
     class Meta:
         model = Comment
         fields = [
             "id",
             "post",
-            "absolute_url",
 
             "user",
-            "nickname",
             "content",
         ]
 
