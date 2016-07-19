@@ -105,5 +105,3 @@ class CommentSpecificListAPIView(ListAPIView):
         post = Post.objects.get(id=self.kwargs.get("pk"))
         comment = post.comment_set.all()
         return comment
-
-
