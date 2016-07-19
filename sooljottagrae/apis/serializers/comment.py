@@ -32,3 +32,15 @@ class CommentCreateSerializer(ModelSerializer):
         fields = [
             "content",
         ]
+
+
+class CommentEditSerializer(ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = [
+            "id",
+            "content",
+            "created_at",
+            "updated_at",
+        ]

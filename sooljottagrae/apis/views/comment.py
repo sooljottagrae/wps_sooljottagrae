@@ -4,7 +4,7 @@ from rest_framework.filters import (
         SearchFilter,
         OrderingFilter,
 )
-
+from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
 from rest_framework.views import APIView
 from rest_framework.generics import (
         ListAPIView,
@@ -32,6 +32,7 @@ from posts.models import Post
 from apis.serializers import (
         CommentSerializer,
         CommentCreateSerializer,
+        CommentEditSerializer,
 )
 
 from rest_framework.response import Response
@@ -57,9 +58,25 @@ class CommentCreateAPIView(APIView):
         )
 
 
-class CommentDetailAPIView(RetrieveAPIView):
+class CommentEditAPIView(RetrieveAPIView, UpdateModelMixin, DestroyModelMixin):
     queryset = Comment.objects.all()
+    serializer_class = CommentEditSerializer
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class CommentDetailAPIView(RetrieveAPIView):
     serializer_class = CommentSerializer
+    lookup_field = "id"
+
+    def get_queryset(self):
+        post = Post.objects.get(id=self.kwargs.get("pk"))
+        comment = post.comment_set.all()
+        return comment
 
 
 class CommentListAPIView(ListAPIView):
