@@ -79,7 +79,7 @@ class CommentDetailAPIView(RetrieveAPIView):
         return comment
 
 
-class CommentListAPIView(ListAPIView):
+class CommentGeneralListAPIView(ListAPIView):
     serializer_class = CommentSerializer
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['content', 'user__email']
@@ -95,3 +95,15 @@ class CommentListAPIView(ListAPIView):
                     Q(user__email__icontains=query)
                     ).distinct()
         return queryset_list
+
+
+class CommentSpecificListAPIView(ListAPIView):
+    serializer_class = CommentSerializer
+    pagination_class = PostPageNumberPagination
+
+    def get_queryset(self):
+        post = Post.objects.get(id=self.kwargs.get("pk"))
+        comment = post.comment_set.all()
+        return comment
+
+
