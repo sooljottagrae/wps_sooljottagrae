@@ -41,6 +41,4 @@ class CommentEditSerializer(ModelSerializer):
         fields = [
             "id",
             "content",
-            "created_at",
-            "updated_at",
         ]

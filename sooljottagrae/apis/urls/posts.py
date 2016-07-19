@@ -10,5 +10,5 @@ urlpatterns = [
         url(r'^(?P<pk>\d+)/edit/$', PostUpdateAPIView.as_view(), name="edit"),
         url(r'^(?P<pk>\d+)/delete/$', PostDeleteAPIView.as_view(), name="delete"),
 
-        url(r'^(?P<pk>\d+)/comments/', include('apis.urls.comments', namespace="comments")),
+        url(r'^(?P<pk>\d+)/comments/', include('apis.urls.post-comments', namespace="comments")),
         ]
