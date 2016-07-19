@@ -14,4 +14,5 @@ from .comment import(
         CommentSerializer,
         CommentCreateSerializer,
         CommentEditSerializer,
+        CommentDetailSerializer,
 )

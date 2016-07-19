@@ -33,6 +33,7 @@ from apis.serializers import (
         CommentSerializer,
         CommentCreateSerializer,
         CommentEditSerializer,
+        CommentDetailSerializer,
 )
 
 from rest_framework.response import Response
@@ -70,13 +71,9 @@ class CommentEditAPIView(RetrieveAPIView, UpdateModelMixin, DestroyModelMixin):
 
 
 class CommentDetailAPIView(RetrieveAPIView):
-    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+    serializer_class = CommentDetailSerializer
     lookup_field = "id"
-
-    def get_queryset(self):
-        post = Post.objects.get(id=self.kwargs.get("pk"))
-        comment = post.comment_set.all()
-        return comment
 
 
 class CommentGeneralListAPIView(ListAPIView):
