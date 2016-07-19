@@ -12,6 +12,7 @@ comment_detail_url = HyperlinkedIdentityField(
         lookup_field='id',
 )
 
+
 class CommentSerializer(ModelSerializer):
     user = SerializerMethodField()
     url = comment_detail_url
@@ -48,11 +49,11 @@ class CommentEditSerializer(ModelSerializer):
             "content",
         ]
 
-        
+
 class CommentDetailSerializer(ModelSerializer):
     user = SerializerMethodField()
     url = comment_detail_url
-    
+
     class Meta:
         model = Comment
         fields = [
@@ -62,6 +63,6 @@ class CommentDetailSerializer(ModelSerializer):
             "user",
             "content",
         ]
-    
+
     def get_user(self, obj):
         return str(obj.user.nickname)
