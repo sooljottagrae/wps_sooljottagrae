@@ -26,5 +26,5 @@ urlpatterns = [
     url(r'^posts/', include("posts.urls", namespace="posts")),
 
     url(r'^api/', include("apis.urls", namespace="apis")),
-    url(r'docs/', include('rest_framework_swagger.urls')),
+    # url(r'docs/', include('rest_framework_swagger.urls')),
 ]

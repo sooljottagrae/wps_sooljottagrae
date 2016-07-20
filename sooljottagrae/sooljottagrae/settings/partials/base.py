@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'pipeline',
     'storages',
-    'rest_framework_swagger',
+    # 'rest_framework_swagger',
     'social.apps.django_app.default',
     'oauth2_provider',
     'rest_framework_social_oauth2',
@@ -167,14 +167,14 @@ PIPELINE = {
     },
 
 
-    'JAVASCRIPT': {
-        'posts': {
-            'source_filenames': (
-              'js/posts.js',
-            ),
-            'output_filename': 'js/posts.js',
-        }
-    }
+#    'JAVASCRIPT': {
+#        'posts': {
+#            'source_filenames': (
+#              'js/posts.js',
+#            ),
+#            'output_filename': 'js/posts.js',
+#        }
+#    }
 }
 
 # Auth
