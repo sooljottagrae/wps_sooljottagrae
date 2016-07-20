@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 
 from users.models import User
 
+
 def set_filename_format(now, instance, filename):
     return "{nickname}-{date}-{microsecond}{extension}".format(
             nickname=instance.user.email,
@@ -15,9 +16,10 @@ def set_filename_format(now, instance, filename):
             extension=os.path.splitext(filename)[1],
             )
 
+
 def user_directory_path(instance, filename):
     now = datetime.datetime.now()
-    
+
     path = "images/{year}/{month}/{day}/{email}/{filename}".format(
             year=now.year,
             month=now.month,
