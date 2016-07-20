@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'social.apps.django_app.default',
     'oauth2_provider',
     'rest_framework_social_oauth2',
+    'rest_framework_docs',
 
     'users',
     'posts',

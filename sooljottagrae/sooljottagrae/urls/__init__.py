@@ -27,4 +27,5 @@ urlpatterns = [
 
     url(r'^api/', include("apis.urls", namespace="apis")),
     # url(r'docs/', include('rest_framework_swagger.urls')),
+    url(r'^docs/', include('rest_framework_docs.urls')),
 ]
