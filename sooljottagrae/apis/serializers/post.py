@@ -43,6 +43,7 @@ class PostListSerializer(ModelSerializer):
             "pk",
             "title",
             "content",
+            "image",
             "email",
             "nickname",
             "user",
