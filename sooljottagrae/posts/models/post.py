@@ -17,10 +17,6 @@ class Post(models.Model):
         max_length=20,
     )
 
-    title = models.CharField(
-        max_length=30,
-    )
-
     content = models.CharField(
         max_length=300,
     )
@@ -28,6 +24,10 @@ class Post(models.Model):
     image = models.ImageField(
         blank=True,
         null=True,
+    )
+
+    location = models.CharField(
+        blank=True,
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
