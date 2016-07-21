@@ -12,3 +12,12 @@ from .user import (
         UserListAPIView,
         UserDetailAPIView,
 )
+
+from .comment import(
+    CommentCreateAPIView,
+    CommentDetailAPIView,
+    CommentGeneralListAPIView,
+    CommentSpecificListAPIView,
+)
+
+from .pagination import *

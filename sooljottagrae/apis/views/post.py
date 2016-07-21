@@ -30,14 +30,21 @@ from apis.serializers import (
 )
 
 from apis.permissions import IsOwnerOrReadOnly
+from apis.views.pagination import (
+    # PostLimitOffsetPagination,
+    PostPageNumberPagination,
+)
 
 
 class PostListAPIView(ListAPIView):
+    queryset = Post.objects.all()
     serializer_class = PostListSerializer
     permission_classes = [AllowAny]
 
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title', 'content', 'user__username']
+
+    # pagination_class = [PostPageNumberPagination, ]  # PostLimitOffsetPagination
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Post.objects.all()
@@ -78,3 +85,4 @@ class PostDetailAPIView(RetrieveAPIView):
 class PostDeleteAPIView(DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]

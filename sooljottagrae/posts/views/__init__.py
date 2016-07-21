@@ -6,3 +6,4 @@ from .new import PostNewView
 from .delete import delete
 from .edit import edit
 from .update import update
+from .comments import *
