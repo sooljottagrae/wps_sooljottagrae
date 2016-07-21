@@ -14,5 +14,10 @@ from .user import (
 )
 
 from .comment import(
-    PostCommentListCreateAPIView
+    CommentCreateAPIView,
+    CommentDetailAPIView,
+    CommentGeneralListAPIView,
+    CommentSpecificListAPIView,
 )
+
+from .pagination import *
