@@ -16,3 +16,9 @@ from .comment import(
         CommentEditSerializer,
         CommentDetailSerializer,
 )
+
+from .tag import (
+        AlcoholTagSerializer,
+        FoodTagSerializer,
+        PlaceTagSerializer,
+)

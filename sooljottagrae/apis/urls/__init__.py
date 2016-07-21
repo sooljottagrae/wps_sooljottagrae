@@ -7,4 +7,5 @@ urlpatterns = [
         url(r'posts/', include('apis.urls.posts', namespace="posts")),
         url(r'tokens/', include('apis.urls.tokens', namespace="tokens")),
         url(r'comments/', include('apis.urls.comments', namespace="comments")),
+        url(r'tags/', include('apis.urls.tags', namespace="tags")),
 ]

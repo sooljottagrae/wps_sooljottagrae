@@ -20,4 +20,10 @@ from .comment import(
     CommentSpecificListAPIView,
 )
 
+from .tag import(
+    AlcoholTagListAPIView,
+    FoodTagListAPIView,
+    PlaceTagListAPIView,
+)
+
 from .pagination import *
