@@ -24,7 +24,10 @@ class Post(models.Model):
     content = models.CharField(
         max_length=300,
     )
-
+    
+    location = models.CharField(
+        max_length=15,
+    )
     image = models.ImageField(
         blank=True,
         null=True,
