@@ -38,9 +38,42 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
+"""
+Alcohol Tag CRUD
+"""
+
+
 class AlcoholTagListAPIView(ListAPIView):
     serializer_class = AlcoholTagSerializer
     queryset = AlcoholTag.objects.all()
+
+
+class AlcoholTagCreateAPIView(CreateAPIView):
+    serializer_class = AlcoholTagSerializer
+    queryset = AlcoholTag.objects.all()
+    permission_classes = [IsAdminUser]
+
+
+class AlcoholTagDetailAPIView(RetrieveAPIView):
+    serializer_class = AlcoholTagSerializer
+    queryset = AlcoholTag.objects.all()
+
+
+class AlcoholTagUpdateAPIView(RetrieveUpdateAPIView):
+    serializer_class = AlcoholTagSerializer
+    queryset = AlcoholTag.objects.all()
+    permission_classes = [IsAdminUser]
+
+
+class AlcoholTagDeleteAPIView(DestroyAPIView):
+    serializer_class = AlcoholTagSerializer
+    queryset = AlcoholTag.objects.all()
+    permission_classes = [IsAdminUser]
+
+
+"""
+Food Tag CRUD
+"""
 
 
 class FoodTagListAPIView(ListAPIView):
@@ -48,6 +81,57 @@ class FoodTagListAPIView(ListAPIView):
     queryset = FoodTag.objects.all()
 
 
+class FoodTagCreateAPIView(CreateAPIView):
+    serializer_class = FoodTagSerializer
+    queryset = FoodTag.objects.all()
+    permission_classes = [IsAdminUser]
+
+
+class FoodTagDetailAPIView(RetrieveAPIView):
+    serializer_class = FoodTagSerializer
+    queryset = FoodTag.objects.all()
+
+
+class FoodTagUpdateAPIView(RetrieveUpdateAPIView):
+    serializer_class = FoodTagSerializer
+    queryset = FoodTag.objects.all()
+    permission_classes = [IsAdminUser]
+
+
+class FoodTagDeleteAPIView(DestroyAPIView):
+    serializer_class = FoodTagSerializer
+    queryset = FoodTag.objects.all()
+    permission_classes = [IsAdminUser]
+
+
+"""
+PlaceTag CRUD
+"""
+
+
 class PlaceTagListAPIView(ListAPIView):
     serializer_class = PlaceTagSerializer
     queryset = PlaceTag.objects.all()
+
+
+class PlaceTagCreateAPIView(CreateAPIView):
+    serializer_class = PlaceTagSerializer
+    queryset = PlaceTag.objects.all()
+    permission_classes = [IsAdminUser]
+
+
+class PlaceTagDetailAPIView(RetrieveAPIView):
+    serializer_class = PlaceTagSerializer
+    queryset = PlaceTag.objects.all()
+
+
+class PlaceTagUpdateAPIView(RetrieveUpdateAPIView):
+    serializer_class = PlaceTagSerializer
+    queryset = PlaceTag.objects.all()
+    permission_classes = [IsAdminUser]
+
+
+class PlaceTagDeleteAPIView(DestroyAPIView):
+    serializer_class = PlaceTagSerializer
+    queryset = PlaceTag.objects.all()
+    permission_classes = [IsAdminUser]
