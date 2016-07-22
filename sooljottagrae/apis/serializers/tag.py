@@ -22,6 +22,15 @@ class AlcoholTagSerializer(ModelSerializer):
         ]
 
 
+class AlcoholTagCreateSerializer(ModelSerializer):
+
+    class Meta:
+        model = AlcoholTag
+        fields = [
+                'alcohol_name',
+        ]
+
+
 class FoodTagSerializer(ModelSerializer):
 
     class Meta:
@@ -32,7 +41,26 @@ class FoodTagSerializer(ModelSerializer):
         ]
 
 
+class FoodTagCreateSerializer(ModelSerializer):
+
+    class Meta:
+        model = FoodTag
+        fields = [
+                'food_name',
+        ]
+
+
 class PlaceTagSerializer(ModelSerializer):
+
+    class Meta:
+        model = PlaceTag
+        fields = [
+                'id',
+                'place_name',
+        ]
+
+
+class PlaceTagCreateSerializer(ModelSerializer):
 
     class Meta:
         model = PlaceTag

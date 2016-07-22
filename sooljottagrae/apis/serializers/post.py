@@ -6,7 +6,12 @@ from rest_framework.serializers import (
 )
 
 from .comment import CommentSerializer
-from .tag import AlcoholTagSerializer
+from .tag import (
+        AlcoholTagSerializer,
+        AlcoholTagCreateSerializer,
+        FoodTagCreateSerializer,
+        PlaceTagCreateSerializer,
+)
 from .user import UserModelSerializer
 
 from posts.models import Post, Comment
@@ -14,14 +19,12 @@ from tags.models import AlcoholTag, FoodTag, PlaceTag
 
 
 class PostCreateUpdateSerializer(ModelSerializer):
-    alcohol_tag = CharField(source="alcoholtag_set")
 
     class Meta:
         model = Post
         fields = [
             "image",
             "content",
-            "alcohol_tag",
             "created_at",
             "updated_at",
         ]
@@ -35,7 +38,7 @@ post_detail_url = HyperlinkedIdentityField(
 class PostListSerializer(ModelSerializer):
 
     url = post_detail_url
-    user = UserModelSerializer(read_only=True)
+    user = SerializerMethodField()
     comments_number = SerializerMethodField()
 
     class Meta:
@@ -43,8 +46,6 @@ class PostListSerializer(ModelSerializer):
         fields = [
             "url",
             "pk",
-            "content",
-            "image",
             "user",
             "created_at",
             "updated_at",
@@ -94,18 +95,3 @@ class PostDetailSerializer(ModelSerializer):
         comment_queryset = obj.comment_set.all()
         comments = CommentSerializer(comment_queryset, many=True).data
         return comments
-
-    def get_alcohol_tag(self, obj):
-        alcoholtag_queryset = obj.alcoholtag_set.all()
-        alcoholtag = AlcoholTagSerializer(alcoholtag_queryset).data
-        return alcoholtag
-
-    def get_food_tag(self, obj):
-        foodtag_queryset = obj.foodtag_set.all()
-        foodtag = FoodTagSerializer(foodtag_queryset).data
-        return foodtag
-
-    def get_place_tag(self, obj):
-        placetag_queryset = obj.placetag_set.all()
-        placetag = PlaceTagSerializer(placetag_queryset).data
-        return placetag
