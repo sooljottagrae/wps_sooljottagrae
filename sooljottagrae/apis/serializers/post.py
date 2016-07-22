@@ -7,18 +7,21 @@ from rest_framework.serializers import (
 
 from .comment import CommentSerializer
 from .tag import AlcoholTagSerializer
+from .user import UserModelSerializer
 
 from posts.models import Post, Comment
 from tags.models import AlcoholTag, FoodTag, PlaceTag
 
 
 class PostCreateUpdateSerializer(ModelSerializer):
+    alcohol_tag = CharField(source="alcoholtag_set")
 
     class Meta:
         model = Post
         fields = [
             "image",
             "content",
+            "alcohol_tag",
             "created_at",
             "updated_at",
         ]
@@ -31,10 +34,8 @@ post_detail_url = HyperlinkedIdentityField(
 
 class PostListSerializer(ModelSerializer):
 
-    email = CharField(source="user.email", )
-    nickname = CharField(source="user.nickname", )
     url = post_detail_url
-    user = SerializerMethodField()
+    user = UserModelSerializer(read_only=True)
     comments_number = SerializerMethodField()
 
     class Meta:
@@ -44,8 +45,6 @@ class PostListSerializer(ModelSerializer):
             "pk",
             "content",
             "image",
-            "email",
-            "nickname",
             "user",
             "created_at",
             "updated_at",
@@ -63,30 +62,19 @@ class PostListSerializer(ModelSerializer):
 
 class PostDetailSerializer(ModelSerializer):
 
-    email = CharField(source="user.email", )
-    nickname = CharField(source="user.nickname", )
     url = post_detail_url
-    user = SerializerMethodField()
+    user = UserModelSerializer(read_only=True)
     image = SerializerMethodField()
     comments = SerializerMethodField()
-
-    alcohol_tag = SerializerMethodField()
-    food_tag = SerializerMethodField()
-    place_tag = SerializerMethodField()
     
     class Meta:
         model = Post
         fields = [
             "url",
             "pk",
-            "alcohol_tag",
-            "food_tag",
-            "place_tag",
             "content",
             "image",
             "user",
-            "email",
-            "nickname",
             "created_at",
             "updated_at",
             "comments",
