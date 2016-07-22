@@ -45,10 +45,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'pipeline',
     'storages',
+    # 'rest_framework_swagger',
+    'social.apps.django_app.default',
+    'oauth2_provider',
+    'rest_framework_social_oauth2',
+    'rest_framework_docs',
 
     'users',
     'posts',
     'tags',
+    # 'apis',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -77,6 +83,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -139,7 +148,7 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, "dist", "static")
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'  # 'storages.backends.s3boto.S3BotoStorage'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -156,14 +165,17 @@ PIPELINE = {
             ),
             'output_filename': 'css/sooljottagrae.css',
         }
-    }
+    },
 }
-
 
 # Auth
 AUTH_USER_MODEL = "users.User"
 
-LOGIN_URL = "/login/"
+LOGIN_URL = "/user/login/"
+
+SIGNUP_SUCCESS_MESSAGE = "성공적으로 회원가입 되었습니다."
+LOGIN_SUCCESS_MESSAGE = "성공적으로 로그인 되었습니다."
+LOGOUT_SUCCESS_MESSAGE = "성공적으로 로그아웃 되었습니다."
 
 # API
 
@@ -175,9 +187,93 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+
+        # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 }
 
-SIGNUP_SUCCESS_MESSAGE = "성공적으로 회원가입 되었습니다."
-LOGIN_SUCCESS_MESSAGE = "성공적으로 로그인 되었습니다."
-LOGOUT_SUCCESS_MESSAGE = "성공적으로 로그아웃 되었습니다."
+# Social Authentication
+
+AUTHENTICATION_BACKENDS = [
+        'social.backends.facebook.FacebookOAuth2',
+
+        # 'rest_framework_social_oauth2.backends.DjangoOAuth2',
+
+        'django.contrib.auth.backends.ModelBackend',
+]
+
+SOCIAL_AUTH_URL_NAMESPACE = 'users:social'
+
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get("SOCIAL_AUTH_FACEBOOK_KEY")
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get("SOCIAL_AUTH_FACEBOOK_SECRET")
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    # 'social.pipeline.user.get_username',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.social_auth.associate_by_email',
+    'users.social.create_user',
+    'users.social.update_avatar',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/user/login/"
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+        'fields': 'id, name, email, age_range'
+        }
+SOCIAL_AUTH_UID_LENGTH = 255
+SOCIAL_AUTH_NONCE_SERVER_URL_LENGTH = 255
+SOCIAL_AUTH_ASSOCIATION_SERVER_URL_LENGTH = 255
+SOCIAL_AUTH_ASSOCIATION_HANDLE_LENGTH = 255
+
+PROPRIETARY_BACKEND_NAME = "Facebook"
+
+# Swagger for API docs settings
+
+SWAGGER_SETTINGS = {
+    'exclude_url_names': [],
+    'exclude_namespaces': [],
+    'api_version': '0.1',
+    'api_path': '/',
+    'relative_paths': False,
+    'enabled_methods': [
+        'get',
+        'post',
+        'put',
+        'patch',
+        'delete'
+    ],
+    'api_key': '',
+    'is_authenticated': False,
+    'is_superuser': False,
+    'unauthenticated_user': 'django.contrib.auth.models.AnonymousUser',
+    'permission_denied_handler': None,
+    'resource_access_handler': None,
+    # 'base_path':'localhost.com/',
+    'info': {
+        'contact': 'apiteam@wordnik.com',
+        'description': 'This is a sample server Petstore server. '
+                       'You can find out more about Swagger at '
+                       '<a href="http://swagger.wordnik.com">'
+                       'http://swagger.wordnik.com</a> '
+                       'or on irc.freenode.net, #swagger. '
+                       'For this sample, you can use the api key '
+                       '"special-key" to test '
+                       'the authorization filters',
+        'license': 'Apache 2.0',
+        'licenseUrl': 'http://www.apache.org/licenses/LICENSE-2.0.html',
+        'termsOfServiceUrl': 'http://helloreverb.com/terms/',
+        'title': 'Swagger Sample App',
+    },
+    'doc_expansion': 'none',
+}
