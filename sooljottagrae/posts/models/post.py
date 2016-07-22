@@ -41,25 +41,18 @@ class Post(models.Model):
     objects = PostManager()
     user = models.ForeignKey(User)
 
-    post_id = models.CharField(
-        max_length=20,
-    )
-
-    title = models.CharField(
-        max_length=30,
-    )
-
     content = models.CharField(
         max_length=300,
     )
 
-    location = models.CharField(
-        max_length=15,
-    )
     image = models.ImageField(
         upload_to=user_directory_path,
         blank=True,
         null=True,
+    )
+
+    location = models.CharField(
+        blank=True,
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
