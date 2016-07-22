@@ -44,9 +44,7 @@ class Post(models.Model):
     content = models.CharField(
         max_length=300,
     )
-    location = models.CharField(
-        max_length=15,
-    )
+
     image = models.ImageField(
         upload_to=user_directory_path,
         blank=True,
