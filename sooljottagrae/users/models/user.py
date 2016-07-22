@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
+from .follow import Follow
+
 
 class MyUserManager(BaseUserManager):
     def create_user(self, email, nickname, password):
@@ -53,6 +55,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nickname']
+
+    follower_set = ManyToManyField(
+            "AlcoholTag",
+            symmertical=False,
+            through=Follow,
+            through_fields=("follower", "followee"),
+            related_name="followee_set",
+            )
 
     def get_full_name(self):
         # The user is identified by their email address
