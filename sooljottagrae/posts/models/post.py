@@ -53,6 +53,7 @@ class Post(models.Model):
 
     location = models.CharField(
         blank=True,
+        max_length=30,
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
