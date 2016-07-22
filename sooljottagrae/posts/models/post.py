@@ -12,7 +12,7 @@ class PostManager(models.Manager):
 class Post(models.Model):
 
     objects = PostManager()
-    user = models.ForeignKey(MyUser) 
+    user = models.ForeignKey(MyUser)
 
     content = models.CharField(
         max_length=300,
