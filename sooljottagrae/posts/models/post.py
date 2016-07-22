@@ -39,20 +39,11 @@ class PostManager(models.Manager):
 class Post(models.Model):
 
     objects = PostManager()
-<<<<<<< HEAD
     user = models.ForeignKey(User)
-
-    post_id = models.CharField(
-        max_length=20,
-    )
-=======
-    user = models.ForeignKey(MyUser)
->>>>>>> feature/post
 
     content = models.CharField(
         max_length=300,
     )
-    
     location = models.CharField(
         max_length=15,
     )
