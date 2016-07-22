@@ -66,7 +66,7 @@ class PostDetailSerializer(ModelSerializer):
     user = UserModelSerializer(read_only=True)
     image = SerializerMethodField()
     comments = SerializerMethodField()
-    
+
     class Meta:
         model = Post
         fields = [
@@ -99,12 +99,12 @@ class PostDetailSerializer(ModelSerializer):
         alcoholtag_queryset = obj.alcoholtag_set.all()
         alcoholtag = AlcoholTagSerializer(alcoholtag_queryset).data
         return alcoholtag
-    
+
     def get_food_tag(self, obj):
         foodtag_queryset = obj.foodtag_set.all()
         foodtag = FoodTagSerializer(foodtag_queryset).data
         return foodtag
-    
+
     def get_place_tag(self, obj):
         placetag_queryset = obj.placetag_set.all()
         placetag = PlaceTagSerializer(placetag_queryset).data

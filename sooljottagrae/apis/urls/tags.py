@@ -8,7 +8,7 @@ urlpatterns = [
         url(r'^alcohol/(?P<pk>\d+)/$', AlcoholTagDetailAPIView.as_view(), name="alcohol-detail"),
         url(r'^alcohol/(?P<pk>\d+)/update/$', AlcoholTagUpdateAPIView.as_view(), name="alcohol-update"),
         url(r'^alcohol/(?P<pk>\d+)/delete/$', AlcoholTagDeleteAPIView.as_view(), name="alcohol-delete"),
-       
+
         url(r'^food/$', FoodTagListAPIView.as_view(), name="food-list"),
         url(r'^food/create/$', FoodTagCreateAPIView.as_view(), name="food-create"),
         url(r'^food/(?P<pk>\d+)/$', FoodTagDetailAPIView.as_view(), name="food-detail"),
