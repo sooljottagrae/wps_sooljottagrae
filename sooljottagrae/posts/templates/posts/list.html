@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-{% extends "post_base.html" %}
-=======
 {% extends "base.html" %}
->>>>>>> 09d9843ac1c3cec100f872d2a916723469491dde
 
 {% block title %}
 Post List
@@ -15,7 +11,8 @@ Post List
     <li>
     <img src="{{ post.get_image_url }}" alt="{{ post.title }}">
     </li>
-    <li><a href="{% url "posts:detail" pk=post.id %}"><h4>{{ post.title }}</h4></a></li>
+    <li><a href="{% url "posts:detail" pk=post.id %}"><h4>{{ post.title }}
+        <span>({{ post.comment_set.count }})</span></h4></a></li>
     <li><p>{{ post.content }}</p></li>
 {% endfor %}
 </ul>

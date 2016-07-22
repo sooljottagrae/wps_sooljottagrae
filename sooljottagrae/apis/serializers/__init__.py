@@ -9,3 +9,10 @@ from .user import (
         UserLoginSerializer,
         UserModelSerializer,
 )
+
+from .comment import(
+        CommentSerializer,
+        CommentCreateSerializer,
+        CommentEditSerializer,
+        CommentDetailSerializer,
+)

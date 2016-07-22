@@ -45,10 +45,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'pipeline',
     'storages',
-    'rest_framework_swagger',
+    # 'rest_framework_swagger',
     'social.apps.django_app.default',
     'oauth2_provider',
     'rest_framework_social_oauth2',
+    'rest_framework_docs',
 
     'users',
     'posts',
@@ -164,9 +165,8 @@ PIPELINE = {
             ),
             'output_filename': 'css/sooljottagrae.css',
         }
-    }
+    },
 }
-
 
 # Auth
 AUTH_USER_MODEL = "users.User"
@@ -191,6 +191,7 @@ REST_FRAMEWORK = {
         # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
         # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 }
 
 # Social Authentication

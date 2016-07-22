@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-{% extends "post_base.html" %}
-=======
 {% extends "base.html" %}
->>>>>>> 09d9843ac1c3cec100f872d2a916723469491dde
+{% load pipeline %}
 
  
 {% block content %}
@@ -12,9 +9,26 @@
     <li><p>{{ post.content }}</p></li>
     <li><a href="{% url "posts:edit" post_id=post.id %}">Edit</a></li>
     <li><a href="{% url "posts:delete" post_id=post.id %}">Delete</a></li>
-</ul>        
-{%  endblock %}
+</ul>    
 
 
 
+<h2>Comments ( {{ post.comment_set.count }} )</h2>
+<ul>
+  {% for comment in post.comment_set.all %}
+  <li id="comment-{{ comment.id }}">
+    {{ comment.user.username }}
+    {{ comment.content }}
+    <a href="{% url "posts:comments-edit" post_id=post.id comment_id=comment.id %}">Edit</a>
+    <a href="{% url "posts:comments-delete" post_id=post.id comment_id=comment.id %}">Delete</a>
+  </li>
+  {% endfor %}
+</ul>
 
+<h2>New Comment</h2>
+<form action="/posts/{{ post.id }}/comments/create/" method="POST">
+  {% csrf_token %}
+  <input type="text" name="content" placeholder="댓글">
+  <input type="submit" value="댓글 달기">
+</form>
+{% endblock %}

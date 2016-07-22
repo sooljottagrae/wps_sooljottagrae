@@ -2,6 +2,7 @@
 <html>
  <head>
    {% stylesheet "sooljottagrae" %}
+   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
  </head>
  <body>
    {% include "partials/header.html" %}
@@ -10,6 +11,7 @@
      {% block content %}{% endblock %}
    </section>
    {% include "partials/footer.html" %}  
+   {% javascript "posts" %}
+   {% block custom_javascripts %}{% endblock %}
  </body>
-
 </html>
