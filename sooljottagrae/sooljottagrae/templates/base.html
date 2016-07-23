@@ -1,16 +1,21 @@
 {% load pipeline %}<!DOCTYPE html>
 <html>
  <head>
-   {% stylesheet "sooljottagrae" %}
-   <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <!-- Vendor CSS -->
+    <link href="/static/vendors/animate-css/animate.min.css" rel="stylesheet">
+    <link href="/static/vendors/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+    <link href="/static/vendors/material-icons/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="/static/vendors/socicon/socicon.min.css" rel="stylesheet">
+        
+    <!-- CSS -->
+    <link href="/static/css/app.min.1.css" rel="stylesheet">
+    <link href="/static/css/app.min.2.css" rel="stylesheet">
  </head>
  <body>
-   {% include "partials/header.html" %}
    {% include "partials/messages.html" %}
    <section id="content">
      {% block content %}{% endblock %}
    </section>
-   {% include "partials/footer.html" %}  
    {% javascript "posts" %}
    {% block custom_javascripts %}{% endblock %}
  </body>

@@ -160,8 +160,12 @@ PIPELINE = {
     'STYLESHEETS': {
         'sooljottagrae': {
             'source_filenames': (
-              'css/application.css',
               'css/partials/*.css',
+              'css/*.css',
+              'font/weather-icons/*',
+              'fonts/*',
+              'less/*',
+              'vendors/*',
             ),
             'output_filename': 'css/sooljottagrae.css',
         }
