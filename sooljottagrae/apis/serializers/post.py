@@ -20,11 +20,14 @@ from tags.models import AlcoholTag, FoodTag, PlaceTag
 
 class PostCreateUpdateSerializer(ModelSerializer):
 
+    alcohol_tag = CharField(source="alcoholtag_set")
+
     class Meta:
         model = Post
         fields = [
             "image",
             "content",
+            "alcohol_tag",
             "created_at",
             "updated_at",
         ]
@@ -68,6 +71,8 @@ class PostDetailSerializer(ModelSerializer):
     image = SerializerMethodField()
     comments = SerializerMethodField()
 
+    alcohol_tag = SerializerMethodField()
+
     class Meta:
         model = Post
         fields = [
@@ -75,6 +80,7 @@ class PostDetailSerializer(ModelSerializer):
             "pk",
             "content",
             "image",
+            "alcohol_tag",
             "user",
             "created_at",
             "updated_at",
@@ -95,3 +101,8 @@ class PostDetailSerializer(ModelSerializer):
         comment_queryset = obj.comment_set.all()
         comments = CommentSerializer(comment_queryset, many=True).data
         return comments
+
+    def get_alcohol_tag(self, obj):
+        alcoholtag_queryset = obj.alcoholtag_set.all()
+        alcoholtags = AlcoholTagSerializer(alcoholtag_queryset, many=True).data
+        return alcoholtags
