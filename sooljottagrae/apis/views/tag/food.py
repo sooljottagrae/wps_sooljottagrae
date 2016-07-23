@@ -28,7 +28,10 @@ from apis.views.pagination import PostPageNumberPagination
 
 from tags.models import FoodTag
 
-from apis.serializers import FoodTagSerializer
+from apis.serializers import (
+        FoodTagSerializer,
+        FoodTagDetailSerializer,
+)
 
 from rest_framework.response import Response
 from rest_framework import status
@@ -46,7 +49,7 @@ class FoodTagCreateAPIView(CreateAPIView):
 
 
 class FoodTagDetailAPIView(RetrieveAPIView):
-    serializer_class = FoodTagSerializer
+    serializer_class = FoodTagDetailSerializer
     queryset = FoodTag.objects.all()
 
 

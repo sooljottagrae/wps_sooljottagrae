@@ -28,7 +28,10 @@ from apis.views.pagination import PostPageNumberPagination
 
 from tags.models import AlcoholTag
 
-from apis.serializers import AlcoholTagSerializer
+from apis.serializers import (
+        AlcoholTagSerializer,
+        AlcoholTagDetailSerializer,
+)
 
 from rest_framework.response import Response
 from rest_framework import status
@@ -46,7 +49,7 @@ class AlcoholTagCreateAPIView(CreateAPIView):
 
 
 class AlcoholTagDetailAPIView(RetrieveAPIView):
-    serializer_class = AlcoholTagSerializer
+    serializer_class = AlcoholTagDetailSerializer
     queryset = AlcoholTag.objects.all()
 
 

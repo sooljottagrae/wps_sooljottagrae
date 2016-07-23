@@ -19,6 +19,9 @@ from .comment import(
 
 from .tag import (
         AlcoholTagSerializer,
+        AlcoholTagDetailSerializer,
         FoodTagSerializer,
+        FoodTagDetailSerializer,
         PlaceTagSerializer,
+        PlaceTagDetailSerializer,
 )

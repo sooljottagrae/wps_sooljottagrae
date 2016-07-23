@@ -28,7 +28,10 @@ from apis.views.pagination import PostPageNumberPagination
 
 from tags.models import PlaceTag
 
-from apis.serializers import PlaceTagSerializer
+from apis.serializers import (
+        PlaceTagSerializer,
+        PlaceTagDetailSerializer,
+)
 
 from rest_framework.response import Response
 from rest_framework import status
@@ -46,7 +49,7 @@ class PlaceTagCreateAPIView(CreateAPIView):
 
 
 class PlaceTagDetailAPIView(RetrieveAPIView):
-    serializer_class = PlaceTagSerializer
+    serializer_class = PlaceTagDetailSerializer
     queryset = PlaceTag.objects.all()
 
 

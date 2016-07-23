@@ -23,7 +23,6 @@ post_detail_url = HyperlinkedIdentityField(
 
 
 class PostCreateUpdateSerializer(ModelSerializer):
-
     alcohol_tag = CharField(source="alcoholtag_set")
     food_tag = CharField(source="foodtag_set")
     place_tag = CharField(source="placetag_set")
@@ -42,7 +41,6 @@ class PostCreateUpdateSerializer(ModelSerializer):
 
 
 class PostListSerializer(ModelSerializer):
-
     url = post_detail_url
     user = SerializerMethodField()
     comments_number = SerializerMethodField()
@@ -68,7 +66,6 @@ class PostListSerializer(ModelSerializer):
 
 
 class PostDetailSerializer(ModelSerializer):
-
     url = post_detail_url
     user = UserModelSerializer(read_only=True)
     image = SerializerMethodField()
