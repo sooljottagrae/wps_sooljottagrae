@@ -2,9 +2,10 @@
 
 {% block content %}
 <section>
+  <form action={% url "users:login" %} method="POST">
   <form id="signup" method="post" action="{% url "users:signup" %}" enctype="multipart/form-data">
     {% csrf_token %}
- 
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +46,7 @@
              </a>
             
             <ul class="login-navigation">
-                <li data-block="#l-register" class="bgm-red">Register</li>
+                <li data-block="#l-register" class="btn bgm-pink waves-effect waves-button waves-float">Register</li>
             </ul>
         </div>
         
@@ -85,10 +86,17 @@
             <a href="" class="btn btn-login btn-danger btn-float"><i class="md md-arrow-forward"></i></a>
             
             <ul class="login-navigation">
-                <li data-block="#l-login" class="bgm-green">Login</li>
+                <li data-block="#l-login" class="btn bgm-green waves-effect waves-button waves-float">Login</li>
             </ul>
+        </div>
+        
 
-        </body>
+        <!-- Javascript Libraries -->
+        <script src="/static/js/jquery-2.1.1.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="/static/vendors/waves/waves.min.js"></script>
+        <script src="/static/js/functions.js"></script>
+    </body>
     </form>    
 </section>
 {% endblock %}
