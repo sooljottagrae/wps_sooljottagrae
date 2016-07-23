@@ -17,7 +17,7 @@ from apis.serializers.post import *
 
 
 class TagPostSerializer(HyperlinkedModelSerializer):
-    
+
     class Meta:
         model = Post
         fields = [
@@ -44,11 +44,12 @@ class AlcoholTagDetailSerializer(ModelSerializer):
                 'alcohol_name',
                 'post',
         ]
-    
+
     def get_post(self, obj):
         post_queryset = obj.post_set.all()
         posts = TagPostSerializer(post_queryset, many=True).data
         return posts
+
 
 class FoodTagSerializer(ModelSerializer):
 
@@ -69,11 +70,12 @@ class FoodTagDetailSerializer(ModelSerializer):
                 'food_name',
                 'post',
         ]
-    
+
     def get_post(self, obj):
         post_queryset = obj.post_set.all()
         posts = TagPostSerializer(post_queryset, many=True).data
         return posts
+
 
 class PlaceTagSerializer(ModelSerializer):
 
@@ -88,7 +90,7 @@ class PlaceTagSerializer(ModelSerializer):
 class PlaceTagDetailSerializer(ModelSerializer):
 
     post = SerializerMethodField()
-    
+
     class Meta:
         model = PlaceTag
         fields = [
