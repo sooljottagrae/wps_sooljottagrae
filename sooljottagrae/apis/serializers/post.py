@@ -8,19 +8,25 @@ from rest_framework.serializers import (
 from .comment import CommentSerializer
 from .tag import (
         AlcoholTagSerializer,
-        AlcoholTagCreateSerializer,
-        FoodTagCreateSerializer,
-        PlaceTagCreateSerializer,
+        FoodTagSerializer,
+        PlaceTagSerializer,
 )
 from .user import UserModelSerializer
 
 from posts.models import Post, Comment
 from tags.models import AlcoholTag, FoodTag, PlaceTag
 
+post_detail_url = HyperlinkedIdentityField(
+        view_name='apis:posts:detail',
+        lookup_field='pk',
+)
+
 
 class PostCreateUpdateSerializer(ModelSerializer):
 
     alcohol_tag = CharField(source="alcoholtag_set")
+    food_tag = CharField(source="foodtag_set")
+    place_tag = CharField(source="placetag_set")
 
     class Meta:
         model = Post
@@ -28,14 +34,11 @@ class PostCreateUpdateSerializer(ModelSerializer):
             "image",
             "content",
             "alcohol_tag",
+            "food_tag",
+            "place_tag",
             "created_at",
             "updated_at",
         ]
-
-post_detail_url = HyperlinkedIdentityField(
-        view_name='apis:posts:detail',
-        lookup_field='pk',
-)
 
 
 class PostListSerializer(ModelSerializer):
@@ -72,6 +75,8 @@ class PostDetailSerializer(ModelSerializer):
     comments = SerializerMethodField()
 
     alcohol_tag = SerializerMethodField()
+    food_tag = SerializerMethodField()
+    place_tag = SerializerMethodField()
 
     class Meta:
         model = Post
@@ -81,6 +86,8 @@ class PostDetailSerializer(ModelSerializer):
             "content",
             "image",
             "alcohol_tag",
+            "food_tag",
+            "place_tag",
             "user",
             "created_at",
             "updated_at",
@@ -106,3 +113,13 @@ class PostDetailSerializer(ModelSerializer):
         alcoholtag_queryset = obj.alcoholtag_set.all()
         alcoholtags = AlcoholTagSerializer(alcoholtag_queryset, many=True).data
         return alcoholtags
+
+    def get_food_tag(self, obj):
+        foodtag_queryset = obj.foodtag_set.all()
+        foodtags = FoodTagSerializer(foodtag_queryset, many=True).data
+        return foodtags
+
+    def get_place_tag(self, obj):
+        placetag_queryset = obj.placetag_set.all()
+        placetags = PlaceTagSerializer(placetag_queryset, many=True).data
+        return placetags
