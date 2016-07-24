@@ -36,10 +36,13 @@ from apis.serializers import (
 from rest_framework.response import Response
 from rest_framework import status
 
+from apis.views.pagination import TagPageNumberPagination
+
 
 class FoodTagListAPIView(ListAPIView):
     serializer_class = FoodTagSerializer
     queryset = FoodTag.objects.all()
+    pagination_class = TagPageNumberPagination
 
 
 class FoodTagCreateAPIView(CreateAPIView):

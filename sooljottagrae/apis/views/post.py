@@ -31,7 +31,6 @@ from apis.serializers import (
 
 from apis.permissions import IsOwnerOrReadOnly
 from apis.views.pagination import (
-    # PostLimitOffsetPagination,
     PostPageNumberPagination,
 )
 
@@ -44,7 +43,7 @@ class PostListAPIView(ListAPIView):
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title', 'content', 'user__username']
 
-    # pagination_class = [PostPageNumberPagination, ]  # PostLimitOffsetPagination
+    pagination_class = PostPageNumberPagination
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Post.objects.all()

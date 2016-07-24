@@ -37,9 +37,13 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
+from apis.views.pagination import TagPageNumberPagination
+
+
 class PlaceTagListAPIView(ListAPIView):
     serializer_class = PlaceTagSerializer
     queryset = PlaceTag.objects.all()
+    pagination_class = TagPageNumberPagination
 
 
 class PlaceTagCreateAPIView(CreateAPIView):
