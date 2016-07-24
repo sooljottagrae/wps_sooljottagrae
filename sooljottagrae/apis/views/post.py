@@ -77,6 +77,7 @@ class PostUpdateAPIView(RetrieveUpdateAPIView):
 
 
 class PostDetailAPIView(RetrieveAPIView):
+    serializer = PostDetailSerializer()
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     lookup_field = "pk"

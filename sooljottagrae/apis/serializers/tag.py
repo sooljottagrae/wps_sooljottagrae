@@ -13,15 +13,29 @@ from tags.models import (
         PlaceTag,
 )
 
-from apis.serializers.post import *
+alcohol_tag_detail_url = HyperlinkedIdentityField(
+        view_name='apis:tags:alcohol-detail',
+        lookup_field='pk',
+)
+
+food_tag_detail_url = HyperlinkedIdentityField(
+        view_name='apis:tags:food-detail',
+        lookup_field='pk',
+)
+
+place_tag_detail_url = HyperlinkedIdentityField(
+        view_name='apis:tags:place-detail',
+        lookup_field='pk',
+)
 
 
-class TagPostSerializer(HyperlinkedModelSerializer):
+class PostSerializer(ModelSerializer):
 
     class Meta:
         model = Post
         fields = [
                 'id',
+                'content',
         ]
 
 
@@ -48,15 +62,17 @@ class AlcoholTagDetailSerializer(ModelSerializer):
 
     def get_posts(self, obj):
         post_queryset = obj.post_set.all()
-        posts = TagPostSerializer(post_queryset, many=True).data
+        posts = PostSerializer(post_queryset, many=True).data
         return posts
 
 
 class FoodTagSerializer(ModelSerializer):
+    url = food_tag_detail_url
 
     class Meta:
         model = FoodTag
         fields = [
+                'url',
                 'id',
                 'food_name',
         ]
@@ -75,15 +91,17 @@ class FoodTagDetailSerializer(ModelSerializer):
 
     def get_posts(self, obj):
         post_queryset = obj.post_set.all()
-        posts = TagPostSerializer(post_queryset, many=True).data
+        posts = PostSerializer(post_queryset, many=True).data
         return posts
 
 
 class PlaceTagSerializer(ModelSerializer):
+    url = place_tag_detail_url
 
     class Meta:
         model = PlaceTag
         fields = [
+                'url',
                 'id',
                 'place_name',
         ]
@@ -103,5 +121,5 @@ class PlaceTagDetailSerializer(ModelSerializer):
 
     def get_posts(self, obj):
         post_queryset = obj.post_set.all()
-        posts = TagPostSerializer(post_queryset, many=True).data
+        posts = PostSerializer(post_queryset, many=True).data
         return posts

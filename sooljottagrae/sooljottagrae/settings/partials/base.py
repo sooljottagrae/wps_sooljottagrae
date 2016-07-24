@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'rest_framework_social_oauth2',
     'rest_framework_docs',
+    'django.contrib.sites',
 
     'users',
     'posts',
@@ -277,3 +278,7 @@ SWAGGER_SETTINGS = {
     },
     'doc_expansion': 'none',
 }
+
+# Site framework settings: https://docs.djangoproject.com/en/1.9/ref/contrib/sites/
+
+SITE_ID = 1
