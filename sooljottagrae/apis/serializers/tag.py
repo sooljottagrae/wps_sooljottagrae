@@ -36,16 +36,17 @@ class AlcoholTagSerializer(ModelSerializer):
 
 
 class AlcoholTagDetailSerializer(ModelSerializer):
+    posts = SerializerMethodField()
 
     class Meta:
         model = AlcoholTag
         fields = [
                 'id',
                 'alcohol_name',
-                'post',
+                'posts',
         ]
 
-    def get_post(self, obj):
+    def get_posts(self, obj):
         post_queryset = obj.post_set.all()
         posts = TagPostSerializer(post_queryset, many=True).data
         return posts
@@ -62,16 +63,17 @@ class FoodTagSerializer(ModelSerializer):
 
 
 class FoodTagDetailSerializer(ModelSerializer):
+    posts = SerializerMethodField()
 
     class Meta:
         model = FoodTag
         fields = [
                 'id',
                 'food_name',
-                'post',
+                'posts',
         ]
 
-    def get_post(self, obj):
+    def get_posts(self, obj):
         post_queryset = obj.post_set.all()
         posts = TagPostSerializer(post_queryset, many=True).data
         return posts
@@ -89,17 +91,17 @@ class PlaceTagSerializer(ModelSerializer):
 
 class PlaceTagDetailSerializer(ModelSerializer):
 
-    post = SerializerMethodField()
+    posts = SerializerMethodField()
 
     class Meta:
         model = PlaceTag
         fields = [
                 'id',
                 'place_name',
-                'post',
+                'posts',
         ]
 
-    def get_post(self, obj):
+    def get_posts(self, obj):
         post_queryset = obj.post_set.all()
         posts = TagPostSerializer(post_queryset, many=True).data
         return posts
