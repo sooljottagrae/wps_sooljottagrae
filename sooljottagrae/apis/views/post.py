@@ -41,7 +41,7 @@ class PostListAPIView(ListAPIView):
     permission_classes = [AllowAny]
 
     filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = ['title', 'content', 'user__username']
+    search_fields = ['content', 'user__email']
 
     pagination_class = PostPageNumberPagination
 
@@ -50,9 +50,8 @@ class PostListAPIView(ListAPIView):
         query = self.request.GET.get("q")
         if query:
             queryset_list = queryst_list.filter(
-                    Q(title__icontains=query) |
                     Q(content__icontains=query) |
-                    Q(user__username__icontains=query)
+                    Q(user__email__icontains=query)
                     ).distinct()
         return queryset_list
 
