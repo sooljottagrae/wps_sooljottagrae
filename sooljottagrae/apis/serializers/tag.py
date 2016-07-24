@@ -30,23 +30,37 @@ place_tag_detail_url = HyperlinkedIdentityField(
 
 
 class PostSerializer(ModelSerializer):
+    url = SerializerMethodField()
 
     class Meta:
         model = Post
         fields = [
+                'url',
                 'id',
                 'content',
         ]
 
+    def get_url(self, obj):
+        absolute_url = Post.get_absolute_api_url(obj)
+        full_url = "https://" + "sooljotta.com" + absolute_url
+        return full_url
+
 
 class AlcoholTagSerializer(ModelSerializer):
+    url = SerializerMethodField()
 
     class Meta:
         model = AlcoholTag
         fields = [
+                'url',
                 'id',
                 'alcohol_name',
         ]
+
+    def get_url(self, obj):
+        absolute_url = AlcoholTag.get_absolute_api_url(obj)
+        full_url = "https://" + "sooljotta.com" + absolute_url
+        return full_url
 
 
 class AlcoholTagDetailSerializer(ModelSerializer):
@@ -67,7 +81,7 @@ class AlcoholTagDetailSerializer(ModelSerializer):
 
 
 class FoodTagSerializer(ModelSerializer):
-    url = food_tag_detail_url
+    url = SerializerMethodField()
 
     class Meta:
         model = FoodTag
@@ -76,6 +90,11 @@ class FoodTagSerializer(ModelSerializer):
                 'id',
                 'food_name',
         ]
+
+    def get_url(self, obj):
+        absolute_url = FoodTag.get_absolute_api_url(obj)
+        full_url = "https://" + "sooljotta.com" + absolute_url
+        return full_url
 
 
 class FoodTagDetailSerializer(ModelSerializer):
@@ -96,7 +115,7 @@ class FoodTagDetailSerializer(ModelSerializer):
 
 
 class PlaceTagSerializer(ModelSerializer):
-    url = place_tag_detail_url
+    url = SerializerMethodField()
 
     class Meta:
         model = PlaceTag
@@ -105,6 +124,11 @@ class PlaceTagSerializer(ModelSerializer):
                 'id',
                 'place_name',
         ]
+
+    def get_url(self, obj):
+        absolute_url = PlaceTag.get_absolute_api_url(obj)
+        full_url = "https://" + "sooljotta.com" + absolute_url
+        return full_url
 
 
 class PlaceTagDetailSerializer(ModelSerializer):
