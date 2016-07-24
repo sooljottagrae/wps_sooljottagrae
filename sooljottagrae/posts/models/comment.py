@@ -19,3 +19,11 @@ class Comment(models.Model):
                 "pk": self.post.id,
             },
         ) + "#comment-" + str(self.id)
+
+    def get_absolute_api_url(self):
+        return reverse(
+            "apis:comments:detail",
+            kwargs={
+                "id": self.id,
+            },
+        )

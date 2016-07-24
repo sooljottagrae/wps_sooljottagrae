@@ -85,3 +85,11 @@ class Post(models.Model):
         if self.image:
             return self.image.url
         return "http://placehold.it/300x200"
+
+    def get_absolute_api_url(self):
+        return reverse(
+            "apis:posts:detail",
+            kwargs={
+                "pk": self.id,
+            },
+        )

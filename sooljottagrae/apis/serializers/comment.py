@@ -1,3 +1,5 @@
+from django.contrib.sites.models import Site
+
 from rest_framework.serializers import (
         HyperlinkedIdentityField,
         ModelSerializer,
@@ -15,7 +17,7 @@ comment_detail_url = HyperlinkedIdentityField(
 
 class CommentSerializer(ModelSerializer):
     user = SerializerMethodField()
-    url = comment_detail_url
+    url = SerializerMethodField()
 
     class Meta:
         model = Comment
@@ -29,6 +31,11 @@ class CommentSerializer(ModelSerializer):
 
     def get_user(self, obj):
         return str(obj.user.nickname)
+
+    def get_url(self, obj):
+        absolute_url = Comment.get_absolute_api_url(obj)
+        full_url = "https://" + "sooljotta.com" + absolute_url
+        return full_url
 
 
 class CommentCreateSerializer(ModelSerializer):

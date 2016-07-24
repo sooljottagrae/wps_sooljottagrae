@@ -6,21 +6,15 @@ from rest_framework.serializers import (
 )
 
 from .comment import CommentSerializer
+from .tag import (
+        AlcoholTagSerializer,
+        FoodTagSerializer,
+        PlaceTagSerializer,
+)
+from .user import UserModelSerializer
 
 from posts.models import Post, Comment
-
-
-class PostCreateUpdateSerializer(ModelSerializer):
-
-    class Meta:
-        model = Post
-        fields = [
-            "title",
-            "image",
-            "content",
-            "created_at",
-            "updated_at",
-        ]
+from tags.models import AlcoholTag, FoodTag, PlaceTag
 
 post_detail_url = HyperlinkedIdentityField(
         view_name='apis:posts:detail',
@@ -28,10 +22,25 @@ post_detail_url = HyperlinkedIdentityField(
 )
 
 
-class PostListSerializer(ModelSerializer):
+class PostCreateUpdateSerializer(ModelSerializer):
+    alcohol_tag = CharField(source="alcoholtag_set")
+    food_tag = CharField(source="foodtag_set")
+    place_tag = CharField(source="placetag_set")
 
-    email = CharField(source="user.email", )
-    nickname = CharField(source="user.nickname", )
+    class Meta:
+        model = Post
+        fields = [
+            "image",
+            "content",
+            "alcohol_tag",
+            "food_tag",
+            "place_tag",
+            "created_at",
+            "updated_at",
+        ]
+
+
+class PostListSerializer(ModelSerializer):
     url = post_detail_url
     user = SerializerMethodField()
     comments_number = SerializerMethodField()
@@ -41,11 +50,6 @@ class PostListSerializer(ModelSerializer):
         fields = [
             "url",
             "pk",
-            "title",
-            "content",
-            "image",
-            "email",
-            "nickname",
             "user",
             "created_at",
             "updated_at",
@@ -62,25 +66,26 @@ class PostListSerializer(ModelSerializer):
 
 
 class PostDetailSerializer(ModelSerializer):
-
-    email = CharField(source="user.email", )
-    nickname = CharField(source="user.nickname", )
     url = post_detail_url
-    user = SerializerMethodField()
+    user = UserModelSerializer(read_only=True)
     image = SerializerMethodField()
     comments = SerializerMethodField()
+
+    alcohol_tag = SerializerMethodField()
+    food_tag = SerializerMethodField()
+    place_tag = SerializerMethodField()
 
     class Meta:
         model = Post
         fields = [
             "url",
             "pk",
-            "title",
             "content",
             "image",
+            "alcohol_tag",
+            "food_tag",
+            "place_tag",
             "user",
-            "email",
-            "nickname",
             "created_at",
             "updated_at",
             "comments",
@@ -100,3 +105,18 @@ class PostDetailSerializer(ModelSerializer):
         comment_queryset = obj.comment_set.all()
         comments = CommentSerializer(comment_queryset, many=True).data
         return comments
+
+    def get_alcohol_tag(self, obj):
+        alcoholtag_queryset = obj.alcoholtag_set.all()
+        alcoholtags = AlcoholTagSerializer(alcoholtag_queryset, many=True).data
+        return alcoholtags
+
+    def get_food_tag(self, obj):
+        foodtag_queryset = obj.foodtag_set.all()
+        foodtags = FoodTagSerializer(foodtag_queryset, many=True).data
+        return foodtags
+
+    def get_place_tag(self, obj):
+        placetag_queryset = obj.placetag_set.all()
+        placetags = PlaceTagSerializer(placetag_queryset, many=True).data
+        return placetags
