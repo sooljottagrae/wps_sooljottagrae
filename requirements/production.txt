@@ -8,3 +8,5 @@ python-social-auth
 django-rest-swagger
 django-rest-framework-social-oauth2
 drfdocs
+django-filter
+django-crispy-forms
