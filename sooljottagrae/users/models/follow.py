@@ -1,12 +1,12 @@
 from django.db import models
 
 
-class follow(models.Model):
+class Follow(models.Model):
     follower = models.ForeignKey(
             "User",
             related_name="+",
             )
-    followee = models.FoereignKey(
+    followee = models.ForeignKey(
             "AlcoholTag",
             related_name="+",
             )

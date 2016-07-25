@@ -56,9 +56,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nickname']
 
-    follower_set = ManyToManyField(
+    follower_set = models.ManyToManyField(
             "AlcoholTag",
-            symmertical=False,
+            symmetrical=False,
             through=Follow,
             through_fields=("follower", "followee"),
             related_name="followee_set",
