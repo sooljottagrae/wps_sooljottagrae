@@ -16,7 +16,8 @@ JWT_AUTH = {
     'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
 
     'JWT_RESPONSE_PAYLOAD_HANDLER':
-    'rest_framework_jwt.utils.jwt_response_payload_handler',
+    'apis.views.jwthandler.jwt_response_payload_handler',
+    # 'rest_framework_jwt.utils.jwt_response_payload_handler',
 
     'JWT_SECRET_KEY': os.environ.get('SECRET_KEY_DJANGO'),
     'JWT_ALGORITHM': 'HS256',
