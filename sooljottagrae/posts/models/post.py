@@ -51,19 +51,12 @@ class Post(models.Model):
         null=True,
     )
 
-    location = models.CharField(
-        blank=True,
-    )
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     is_public = models.BooleanField(
         default=True,
     )
-
-    def __str__(self):
-        return self.title
 
     def get_absolute_url(self):
         return reverse(
