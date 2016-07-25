@@ -1,5 +1,6 @@
 from .post import (
-        PostCreateUpdateSerializer,
+        PostCreateSerializer,
+        PostEditSerializer,
         PostListSerializer,
         PostDetailSerializer,
 )
