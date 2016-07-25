@@ -36,12 +36,13 @@ from apis.views.pagination import (
 
 
 class PostListAPIView(ListAPIView):
-    queryset = Post.objects.all()
+    # queryset = Post.objects.all()
     serializer_class = PostListSerializer
     permission_classes = [AllowAny]
 
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['content', 'user__email']
+    ordering_fields = '__all__'
 
     pagination_class = PostPageNumberPagination
 
@@ -49,7 +50,7 @@ class PostListAPIView(ListAPIView):
         queryset_list = Post.objects.all()
         query = self.request.GET.get("q")
         if query:
-            queryset_list = queryst_list.filter(
+            queryset_list = queryset_list.filter(
                     Q(content__icontains=query) |
                     Q(user__email__icontains=query)
                     ).distinct()
