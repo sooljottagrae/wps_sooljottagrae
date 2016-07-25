@@ -1,9 +1,8 @@
 from .post import (
         PostListAPIView,
         PostCreateAPIView,
+        PostEditAPIView,
         PostDetailAPIView,
-        PostUpdateAPIView,
-        PostDeleteAPIView,
 )
 
 from .user import (
@@ -15,6 +14,7 @@ from .user import (
 
 from .comment import(
     CommentCreateAPIView,
+    CommentEditAPIView,
     CommentDetailAPIView,
     CommentGeneralListAPIView,
     CommentSpecificListAPIView,
