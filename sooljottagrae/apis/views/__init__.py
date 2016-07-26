@@ -26,7 +26,6 @@ from .user import (
         UserLoginAPIView,
         UserListAPIView,
         UserDetailAPIView,
-        
+
         MytagsListAPIView,
 )
-

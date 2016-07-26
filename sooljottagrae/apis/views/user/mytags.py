@@ -33,10 +33,10 @@ User = get_user_model()
 
 class MytagsListAPIView(ListAPIView):
     serializer_class = PostListSerializer
-    
+
     def get_queryset(self, *args, **kwargs):
         user = User.objects.get(id=self.kwargs.get("pk"))
-        
+
         alcohol_tag = user.alcohol_tag_set.all()
         food_tag = user.food_tag_set.all()
         place_tag = user.place_tag_set.all()
