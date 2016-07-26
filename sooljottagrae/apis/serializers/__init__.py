@@ -1,6 +1,6 @@
 from .post import (
         PostCreateSerializer,
-        PostEditSerializer,
+        PostUpdateSerializer,
         PostListSerializer,
         PostDetailSerializer,
 )
@@ -21,8 +21,11 @@ from .comment import(
 from .tag import (
         AlcoholTagSerializer,
         AlcoholTagDetailSerializer,
+        AlcoholTagGeneralSerializer,
         FoodTagSerializer,
         FoodTagDetailSerializer,
+        FoodTagGeneralSerializer,
         PlaceTagSerializer,
         PlaceTagDetailSerializer,
+        PlaceTagGeneralSerializer,
 )

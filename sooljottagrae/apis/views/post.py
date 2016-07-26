@@ -25,7 +25,7 @@ from posts.models import Post
 
 from apis.serializers import (
         PostCreateSerializer,
-        PostEditSerializer,
+        PostUpdateSerializer,
         PostListSerializer,
         PostDetailSerializer,
 )
@@ -69,8 +69,7 @@ class PostCreateAPIView(CreateAPIView):
 
 class PostEditAPIView(RetrieveAPIView, UpdateModelMixin, DestroyModelMixin):
     queryset = Post.objects.all()
-    serializer_class = PostEditSerializer
-    lookup_field = "pk"
+    serializer_class = PostUpdateSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def put(self, request, *args, **kwargs):
