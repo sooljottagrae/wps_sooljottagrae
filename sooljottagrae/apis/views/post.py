@@ -4,7 +4,7 @@ from rest_framework.filters import(
         SearchFilter,
         OrderingFilter,
 )
-
+from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
 from rest_framework.generics import (
         ListAPIView,
         CreateAPIView,
@@ -67,13 +67,16 @@ class PostCreateAPIView(CreateAPIView):
         serializer.save(user=self.request.user)
 
 
-class PostUpdateAPIView(RetrieveUpdateAPIView):
+class PostEditAPIView(RetrieveAPIView, UpdateModelMixin, DestroyModelMixin):
     queryset = Post.objects.all()
     serializer_class = PostUpdateSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
-    def perform_update(self, serializer):
-        serializer.save(user=self.request.user)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 class PostDetailAPIView(RetrieveAPIView):
@@ -81,9 +84,3 @@ class PostDetailAPIView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     lookup_field = "pk"
-
-
-class PostDeleteAPIView(DestroyAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostDetailSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]

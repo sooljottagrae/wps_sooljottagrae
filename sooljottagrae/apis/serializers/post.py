@@ -73,6 +73,7 @@ class PostListSerializer(ModelSerializer):
             "url",
             "pk",
             "user",
+            "image",
             "created_at",
             "updated_at",
             "comments_number",
@@ -85,6 +86,13 @@ class PostListSerializer(ModelSerializer):
         if obj.comment_set.all():
             return obj.comment_set.count()
         return 0
+
+    def get_image(self, obj):
+        try:
+            image = obj.image.url
+        except:
+            image = None
+        return image
 
 
 class PostDetailSerializer(ModelSerializer):

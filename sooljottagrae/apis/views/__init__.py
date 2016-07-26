@@ -1,13 +1,13 @@
 from .post import (
         PostListAPIView,
         PostCreateAPIView,
+        PostEditAPIView,
         PostDetailAPIView,
-        PostUpdateAPIView,
-        PostDeleteAPIView,
 )
 
 from .comment import(
     CommentCreateAPIView,
+    CommentEditAPIView,
     CommentDetailAPIView,
     CommentGeneralListAPIView,
     CommentSpecificListAPIView,

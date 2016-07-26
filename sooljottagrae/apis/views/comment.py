@@ -62,6 +62,7 @@ class CommentCreateAPIView(APIView):
 class CommentEditAPIView(RetrieveAPIView, UpdateModelMixin, DestroyModelMixin):
     queryset = Comment.objects.all()
     serializer_class = CommentEditSerializer
+    lookup_field = "id"
 
     def put(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)
