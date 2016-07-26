@@ -6,13 +6,6 @@ from .post import (
         PostDeleteAPIView,
 )
 
-from .user import (
-        UserCreateAPIView,
-        UserLoginAPIView,
-        UserListAPIView,
-        UserDetailAPIView,
-)
-
 from .comment import(
     CommentCreateAPIView,
     CommentDetailAPIView,
@@ -27,3 +20,13 @@ from .tag import(
 )
 
 from .pagination import *
+
+from .user import (
+        UserCreateAPIView,
+        UserLoginAPIView,
+        UserListAPIView,
+        UserDetailAPIView,
+        
+        MytagsListAPIView,
+)
+
