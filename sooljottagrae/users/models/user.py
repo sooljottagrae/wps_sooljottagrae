@@ -6,8 +6,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 
 
 def set_filename_format(now, instance, filename):
-    return "{nickname}-{date}-{microsecond}{extension}".format(
-            nickname=instance.user.nickname,
+    return "{date}-{microsecond}{extension}".format(
             date=str(now.date()),
             microsecond=now.microsecond,
             extension=os.path.splitext(filename)[1],
@@ -16,11 +15,10 @@ def set_filename_format(now, instance, filename):
 def user_directory_path(instance, filename):
     now = datetime.datetime.now()
 
-    path= "images/avatar/{year}/{month}/{day}/{nickname}/{filename}".format(
+    path= "images/avatar/{year}/{month}/{day}/{filename}".format(
             year=now.year,
             month=now.month,
             day=now.day,
-            nickname=instance.user.nickname,
             filename=set_filename_format(now, instance, filename),
             )
 
