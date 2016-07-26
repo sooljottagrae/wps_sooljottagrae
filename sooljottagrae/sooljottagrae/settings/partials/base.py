@@ -24,7 +24,7 @@ PROJECT_ROOT_DIR = os.path.dirname(BASE_DIR)
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'njabip%2f^988ck8mj*@gcbzk90w29+bqv^q=xpf75e(stx*x#'
+SECRET_KEY = os.environ.get('SECRET_KEY_DJANGO')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'rest_framework_social_oauth2',
     'rest_framework_docs',
+    'django.contrib.sites',
 
     'users',
     'posts',
@@ -191,7 +192,9 @@ REST_FRAMEWORK = {
         # 'oauth2_provider.ext.rest_framework.OAuth2Authentication',
         # 'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend',
+    )
 }
 
 # Social Authentication
@@ -277,3 +280,7 @@ SWAGGER_SETTINGS = {
     },
     'doc_expansion': 'none',
 }
+
+# Site framework settings: https://docs.djangoproject.com/en/1.9/ref/contrib/sites/
+
+SITE_ID = 1

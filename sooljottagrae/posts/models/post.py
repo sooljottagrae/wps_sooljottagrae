@@ -51,19 +51,12 @@ class Post(models.Model):
         null=True,
     )
 
-    location = models.CharField(
-        blank=True,
-    )
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     is_public = models.BooleanField(
         default=True,
     )
-
-    def __str__(self):
-        return self.title
 
     def get_absolute_url(self):
         return reverse(
@@ -85,3 +78,11 @@ class Post(models.Model):
         if self.image:
             return self.image.url
         return "http://placehold.it/300x200"
+
+    def get_absolute_api_url(self):
+        return reverse(
+            "apis:posts:detail",
+            kwargs={
+                "pk": self.id,
+            },
+        )

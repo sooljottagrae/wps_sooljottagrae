@@ -31,29 +31,28 @@ from apis.serializers import (
 
 from apis.permissions import IsOwnerOrReadOnly
 from apis.views.pagination import (
-    # PostLimitOffsetPagination,
     PostPageNumberPagination,
 )
 
 
 class PostListAPIView(ListAPIView):
-    queryset = Post.objects.all()
+    # queryset = Post.objects.all()
     serializer_class = PostListSerializer
     permission_classes = [AllowAny]
 
     filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = ['title', 'content', 'user__username']
+    search_fields = ['content', 'user__email']
+    ordering_fields = '__all__'
 
-    # pagination_class = [PostPageNumberPagination, ]  # PostLimitOffsetPagination
+    pagination_class = PostPageNumberPagination
 
     def get_queryset(self, *args, **kwargs):
         queryset_list = Post.objects.all()
         query = self.request.GET.get("q")
         if query:
-            queryset_list = queryst_list.filter(
-                    Q(title__icontains=query) |
+            queryset_list = queryset_list.filter(
                     Q(content__icontains=query) |
-                    Q(user__username__icontains=query)
+                    Q(user__email__icontains=query)
                     ).distinct()
         return queryset_list
 
@@ -77,6 +76,7 @@ class PostUpdateAPIView(RetrieveUpdateAPIView):
 
 
 class PostDetailAPIView(RetrieveAPIView):
+    serializer = PostDetailSerializer()
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     lookup_field = "pk"
