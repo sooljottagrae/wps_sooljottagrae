@@ -4,7 +4,7 @@ from rest_framework.filters import(
         SearchFilter,
         OrderingFilter,
 )
-
+from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
 from rest_framework.generics import (
         ListAPIView,
         CreateAPIView,
@@ -24,7 +24,8 @@ from rest_framework.permissions import (
 from posts.models import Post
 
 from apis.serializers import (
-        PostCreateUpdateSerializer,
+        PostCreateSerializer,
+        PostEditSerializer,
         PostListSerializer,
         PostDetailSerializer,
 )
@@ -59,20 +60,24 @@ class PostListAPIView(ListAPIView):
 
 class PostCreateAPIView(CreateAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostCreateUpdateSerializer
+    serializer_class = PostCreateSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 
-class PostUpdateAPIView(RetrieveUpdateAPIView):
+class PostEditAPIView(RetrieveAPIView, UpdateModelMixin, DestroyModelMixin):
     queryset = Post.objects.all()
-    serializer_class = PostCreateUpdateSerializer
+    serializer_class = PostEditSerializer
+    lookup_field = "pk"
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
-    def perform_update(self, serializer):
-        serializer.save(user=self.request.user)
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 class PostDetailAPIView(RetrieveAPIView):
@@ -80,9 +85,3 @@ class PostDetailAPIView(RetrieveAPIView):
     queryset = Post.objects.all()
     serializer_class = PostDetailSerializer
     lookup_field = "pk"
-
-
-class PostDeleteAPIView(DestroyAPIView):
-    queryset = Post.objects.all()
-    serializer_class = PostDetailSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]

@@ -22,7 +22,25 @@ post_detail_url = HyperlinkedIdentityField(
 )
 
 
-class PostCreateUpdateSerializer(ModelSerializer):
+class PostCreateSerializer(ModelSerializer):
+    alcohol_tag = CharField(source="alcoholtag_set")
+    food_tag = CharField(source="foodtag_set")
+    place_tag = CharField(source="placetag_set")
+
+    class Meta:
+        model = Post
+        fields = [
+            "image",
+            "content",
+            "alcohol_tag",
+            "food_tag",
+            "place_tag",
+            "created_at",
+            "updated_at",
+        ]
+
+
+class PostEditSerializer(ModelSerializer):
     alcohol_tag = CharField(source="alcoholtag_set")
     food_tag = CharField(source="foodtag_set")
     place_tag = CharField(source="placetag_set")
@@ -51,6 +69,7 @@ class PostListSerializer(ModelSerializer):
             "url",
             "pk",
             "user",
+            "image",
             "created_at",
             "updated_at",
             "comments_number",
@@ -63,6 +82,13 @@ class PostListSerializer(ModelSerializer):
         if obj.comment_set.all():
             return obj.comment_set.count()
         return 0
+
+    def get_image(self, obj):
+        try:
+            image = obj.image.url
+        except:
+            image = None
+        return image
 
 
 class PostDetailSerializer(ModelSerializer):
