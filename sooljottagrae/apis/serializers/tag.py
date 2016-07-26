@@ -80,6 +80,16 @@ class AlcoholTagDetailSerializer(ModelSerializer):
         return posts
 
 
+class AlcoholTagGeneralSerializer(ModelSerializer):
+
+    class Meta:
+        model = AlcoholTag
+        fields = [
+                'id',
+                'alcohol_name',
+        ]
+
+
 class FoodTagSerializer(ModelSerializer):
     url = SerializerMethodField()
 
@@ -112,6 +122,16 @@ class FoodTagDetailSerializer(ModelSerializer):
         post_queryset = obj.post_set.all()
         posts = PostSerializer(post_queryset, many=True).data
         return posts
+
+
+class FoodTagGeneralSerializer(ModelSerializer):
+
+    class Meta:
+        model = FoodTag
+        fields = [
+                'id',
+                'food_name',
+        ]
 
 
 class PlaceTagSerializer(ModelSerializer):
@@ -147,3 +167,13 @@ class PlaceTagDetailSerializer(ModelSerializer):
         post_queryset = obj.post_set.all()
         posts = PostSerializer(post_queryset, many=True).data
         return posts
+
+
+class PlaceTagGeneralSerializer(ModelSerializer):
+
+    class Meta:
+        model = PlaceTag
+        fields = [
+                'id',
+                'place_name',
+        ]
