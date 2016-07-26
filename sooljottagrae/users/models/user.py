@@ -1,5 +1,30 @@
+import datetime
+import os
+
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+
+
+def set_filename_format(now, instance, filename):
+    return "{nickname}-{date}-{microsecond}{extension}".format(
+            nickname=instance.user.nickname,
+            date=str(now.date()),
+            microsecond=now.microsecond,
+            extension=os.path.splitext(filename)[1],
+            )
+
+def user_directory_path(instance, filename):
+    now = datetime.datetime.now()
+
+    path= "images/avatar/{year}/{month}/{day}/{nickname}/{filename}".format(
+            year=now.year,
+            month=now.month,
+            day=now.day,
+            nickname=instance.user.nickname,
+            filename=set_filename_format(now, instance, filename),
+            )
+
+    return path
 
 
 class MyUserManager(BaseUserManager):
@@ -43,7 +68,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(
         null=True,
         blank=True,
-        upload_to='sooljottagrae/static/media/',
+        upload_to=user_directory_path,
     )
 
     is_active = models.BooleanField(default=True)
