@@ -2,6 +2,7 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from posts.models import Post
+from users.models import User
 
 
 class AlcoholTag(models.Model):
@@ -11,9 +12,14 @@ class AlcoholTag(models.Model):
             )
 
     post_set = models.ManyToManyField(Post)
+    user_set = models.ManyToManyField(User)
+
+    @property
+    def full_name(self):
+        return "#{alcohol_name}".format(alcohol_name=self.alcohol_name)
 
     def __str__(self):
-        return self.alcohol_name
+        return self.full_name
 
     def get_absolute_api_url(self):
         return reverse(
