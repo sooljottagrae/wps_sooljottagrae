@@ -1,20 +1,13 @@
 from .post import (
         PostListAPIView,
         PostCreateAPIView,
+        PostEditAPIView,
         PostDetailAPIView,
-        PostUpdateAPIView,
-        PostDeleteAPIView,
-)
-
-from .user import (
-        UserCreateAPIView,
-        UserLoginAPIView,
-        UserListAPIView,
-        UserDetailAPIView,
 )
 
 from .comment import(
     CommentCreateAPIView,
+    CommentEditAPIView,
     CommentDetailAPIView,
     CommentGeneralListAPIView,
     CommentSpecificListAPIView,
@@ -27,3 +20,12 @@ from .tag import(
 )
 
 from .pagination import *
+
+from .user import (
+        UserCreateAPIView,
+        UserLoginAPIView,
+        UserListAPIView,
+        UserDetailAPIView,
+
+        MytagsListAPIView,
+)

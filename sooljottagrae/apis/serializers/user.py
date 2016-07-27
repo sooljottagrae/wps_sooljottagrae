@@ -23,6 +23,7 @@ class UserCreateSerializer(ModelSerializer):
         fields = [
             "email",
             "nickname",
+            "avatar",
             "password",
             "password2",
         ]
@@ -49,8 +50,10 @@ class UserCreateSerializer(ModelSerializer):
         email = validated_data['email']
         password = validated_data['password']
         nickname = validated_data['nickname']
+        avatar = validated_data['avatar']
         user_obj = User(
                 email=email,
+                avatar=avatar,
                 nickname=nickname,
             )
         user_obj.set_password(password)
@@ -102,6 +105,7 @@ class UserModelSerializer(ModelSerializer):
         fields = [
                 "id",
                 "nickname",
+                "avatar",
                 "email",
                 "password",
         ]
