@@ -9,6 +9,7 @@ from .user import (
         UserCreateSerializer,
         UserLoginSerializer,
         UserModelSerializer,
+        UserEditSerializer,
 )
 
 from .comment import(
