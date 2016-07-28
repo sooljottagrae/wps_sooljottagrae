@@ -37,17 +37,25 @@ class MytagsListAPIView(ListAPIView):
     def get_queryset(self, *args, **kwargs):
         user = User.objects.get(id=self.kwargs.get("pk"))
 
-        alcohol_tag = user.alcohol_tag_set.all()
-        food_tag = user.food_tag_set.all()
-        place_tag = user.place_tag_set.all()
+        alcohol_tag = user.alcoholtag_set.all()
+        food_tag = user.foodtag_set.all()
+        place_tag = user.placetag_set.all()
 
         post_queryset = []
 
-        for post in alcohol_tag.post_set.all():
-            post_queryset.append(post)
-        for post in food_tag.post_set.all():
-            post_queryset.append(post)
-        for post in place_tag.post_set.all():
-            post_queryst.append(post)
+        for tag in alcohol_tag:
+            posts = tag.post_set.all()
+            for post in posts:
+                post_queryset.append(post)
+
+        for tag in food_tag:
+            posts = tag.post_set.all()
+            for post in posts:
+                post_queryset.append(post)
+
+        for tag in place_tag:
+            posts = tag.post_set.all()
+            for post in posts:
+                post_queryset.append(post)
 
         return post_queryset

@@ -11,6 +11,12 @@ from rest_framework.serializers import (
         ValidationError,
 )
 
+from .tag import (
+        AlcoholTagSerializer,
+        FoodTagSerializer,
+        PlaceTagSerializer,
+)
+
 User = get_user_model()
 
 
@@ -100,12 +106,34 @@ class UserLoginSerializer(ModelSerializer):
 
 class UserModelSerializer(ModelSerializer):
 
+    alcohol_tags = SerializerMethodField()
+    food_tags = SerializerMethodField()
+    place_tags = SerializerMethodField()
+
     class Meta:
         model = User
         fields = [
                 "id",
                 "nickname",
+                "alcohol_tags",
+                "food_tags",
+                "place_tags",
                 "avatar",
                 "email",
                 "password",
         ]
+
+    def get_alcohol_tags(self, obj):
+        alcoholtag_queryset = obj.alcoholtag_set.all()
+        alcoholtags = AlcoholTagSerializer(alcoholtag_queryset, many=True).data
+        return alcoholtags
+
+    def get_food_tags(self, obj):
+        foodtag_queryset = obj.foodtag_set.all()
+        foodtags = FoodTagSerializer(foodtag_queryset, many=True).data
+        return foodtags
+
+    def get_place_tags(self, obj):
+        placetag_queryset = obj.placetag_set.all()
+        placetags = PlaceTagSerializer(placetag_queryset, many=True).data
+        return placetags
