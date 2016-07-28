@@ -13,8 +13,11 @@ from rest_framework.serializers import (
 
 from .tag import (
         AlcoholTagSerializer,
+        AlcoholTagGeneralSerializer,
         FoodTagSerializer,
+        FoodTagGeneralSerializer,
         PlaceTagSerializer,
+        PlaceTagGeneralSerializer,
 )
 
 User = get_user_model()
@@ -137,3 +140,23 @@ class UserModelSerializer(ModelSerializer):
         placetag_queryset = obj.placetag_set.all()
         placetags = PlaceTagSerializer(placetag_queryset, many=True).data
         return placetags
+
+
+class UserEditSerializer(ModelSerializer):
+
+    alcohol_tags = AlcoholTagGeneralSerializer(source="alcoholtag_set", many=True)
+    food_tags = FoodTagGeneralSerializer(source="foodtag_set", many=True)
+    place_tags = PlaceTagGeneralSerializer(source="placetag_set", many=True)
+
+    class Meta:
+        model = User
+        fields = [
+                "id",
+                "nickname",
+                "alcohol_tags",
+                "food_tags",
+                "place_tags",
+                "avatar",
+                "email",
+                "password",
+        ]

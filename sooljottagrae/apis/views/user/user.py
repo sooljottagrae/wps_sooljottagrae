@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 
+from rest_framework.mixins import DestroyModelMixin, UpdateModelMixin
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
@@ -30,6 +31,7 @@ from apis.serializers import (
         UserCreateSerializer,
         UserLoginSerializer,
         UserModelSerializer,
+        UserEditSerializer,
     )
 
 User = get_user_model()
@@ -64,3 +66,10 @@ class UserDetailAPIView(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserModelSerializer
     permission_classes = [IsOwnerOrReadOnly]
+
+
+class UserEditAPIView(RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserEditSerializer
+    # permission_classes = [IsOwnerOrReadOnly]
+    lookup_field = "pk"
