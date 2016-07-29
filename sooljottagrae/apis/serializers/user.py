@@ -2,6 +2,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 
+from tags.models import AlcoholTag, FoodTag, PlaceTag
+
 from rest_framework.serializers import (
         EmailField,
         CharField,
@@ -9,15 +11,19 @@ from rest_framework.serializers import (
         ModelSerializer,
         SerializerMethodField,
         ValidationError,
+        PrimaryKeyRelatedField,
 )
 
 from .tag import (
         AlcoholTagSerializer,
         AlcoholTagGeneralSerializer,
+        AlcoholTagCreateSerializer,
         FoodTagSerializer,
         FoodTagGeneralSerializer,
+        FoodTagCreateSerializer,
         PlaceTagSerializer,
         PlaceTagGeneralSerializer,
+        PlaceTagCreateSerializer,
 )
 
 User = get_user_model()
@@ -144,18 +150,22 @@ class UserModelSerializer(ModelSerializer):
 
 class UserEditSerializer(ModelSerializer):
 
-    alcohol_tags = AlcoholTagGeneralSerializer(source="alcoholtag_set", many=True)
-    food_tags = FoodTagGeneralSerializer(source="foodtag_set", many=True)
-    place_tags = PlaceTagGeneralSerializer(source="placetag_set", many=True)
+    alcohol_tag = PrimaryKeyRelatedField(queryset=AlcoholTag.objects.all())
+    food_tag = PrimaryKeyRelatedField(queryset=FoodTag.objects.all())
+    place_tag = PrimaryKeyRelatedField(queryset=PlaceTag.objects.all())
+
+    # alcohol_tag = SerializerMethodField()
+    # food_tag = SerializerMethodField()
+    # place_tag = SerializerMethodField()
 
     class Meta:
         model = User
         fields = [
                 "id",
                 "nickname",
-                "alcohol_tags",
-                "food_tags",
-                "place_tags",
+                "alcohol_tag",
+                "food_tag",
+                "place_tag",
                 "avatar",
                 "email",
                 "password",

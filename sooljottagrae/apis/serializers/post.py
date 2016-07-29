@@ -3,16 +3,20 @@ from rest_framework.serializers import (
         HyperlinkedIdentityField,
         SerializerMethodField,
         CharField,
+        PrimaryKeyRelatedField
 )
 
 from .comment import CommentSerializer
 from .tag import (
         AlcoholTagSerializer,
         AlcoholTagGeneralSerializer,
+        AlcoholTagCreateSerializer,
         FoodTagSerializer,
         FoodTagGeneralSerializer,
+        FoodTagCreateSerializer,
         PlaceTagSerializer,
         PlaceTagGeneralSerializer,
+        PlaceTagCreateSerializer,
 
 )
 from .user import UserModelSerializer
@@ -27,9 +31,9 @@ post_detail_url = HyperlinkedIdentityField(
 
 
 class PostCreateSerializer(ModelSerializer):
-    alcohol_tag = CharField(source="alcoholtag_set")
-    food_tag = CharField(source="foodtag_set")
-    place_tag = CharField(source="placetag_set")
+    alcohol_tag = CharField(source='alcoholtag_set')
+    food_tag = CharField(source='foodtag_set')
+    place_tag = CharField(source='placetag_set')
 
     class Meta:
         model = Post
@@ -42,6 +46,22 @@ class PostCreateSerializer(ModelSerializer):
             "created_at",
             "updated_at",
         ]
+
+    def create(self, validated_data):
+        alcohol_tag_data = validated_data.pop('alcoholtag_set')
+        food_tag_data = validated_data.pop('foodtag_set')
+        place_tag_data = validated_data.pop('placetag_set')
+        alcohol_tag = AlcoholTag.objects.get(id=alcohol_tag_data)
+        food_tag = FoodTag.objects.get(id=food_tag_data)
+        place_tag = PlaceTag.objects.get(id=place_tag_data)
+
+        post = Post.objects.create(**validated_data)
+
+        post.alcoholtag_set.add(alcohol_tag)
+        post.foodtag_set.add(food_tag)
+        post.placetag_set.add(place_tag)
+
+        return post
 
 
 class PostUpdateSerializer(ModelSerializer):

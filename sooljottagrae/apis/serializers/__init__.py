@@ -23,10 +23,13 @@ from .tag import (
         AlcoholTagSerializer,
         AlcoholTagDetailSerializer,
         AlcoholTagGeneralSerializer,
+        AlcoholTagCreateSerializer,
         FoodTagSerializer,
         FoodTagDetailSerializer,
         FoodTagGeneralSerializer,
+        FoodTagCreateSerializer,
         PlaceTagSerializer,
         PlaceTagDetailSerializer,
         PlaceTagGeneralSerializer,
+        PlaceTagCreateSerializer,
 )

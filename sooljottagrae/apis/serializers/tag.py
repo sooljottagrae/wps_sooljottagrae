@@ -90,6 +90,15 @@ class AlcoholTagGeneralSerializer(ModelSerializer):
         ]
 
 
+class AlcoholTagCreateSerializer(ModelSerializer):
+
+    class Meta:
+        model = AlcoholTag
+        fields = [
+                'id',
+        ]
+
+
 class FoodTagSerializer(ModelSerializer):
     url = SerializerMethodField()
 
@@ -131,6 +140,15 @@ class FoodTagGeneralSerializer(ModelSerializer):
         fields = [
                 'id',
                 'food_name',
+        ]
+
+
+class FoodTagCreateSerializer(ModelSerializer):
+
+    class Meta:
+        model = FoodTag
+        fields = [
+                'id',
         ]
 
 
@@ -176,4 +194,13 @@ class PlaceTagGeneralSerializer(ModelSerializer):
         fields = [
                 'id',
                 'place_name',
+        ]
+
+
+class PlaceTagCreateSerializer(ModelSerializer):
+
+    class Meta:
+        model = PlaceTag
+        fields = [
+                'id',
         ]

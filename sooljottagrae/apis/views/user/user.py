@@ -73,3 +73,25 @@ class UserEditAPIView(RetrieveUpdateAPIView):
     serializer_class = UserEditSerializer
     # permission_classes = [IsOwnerOrReadOnly]
     lookup_field = "pk"
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        alcohol_tag = request.data.pop('alcohol_tag')
+        food_tag = request.data.pop('food_tag')
+        place_tag = request.data.pop('place_tag')
+        
+        atag = AlcoholTag.objects.get(id=alcohol_tag['id'])
+        ftag = FoodTag.objects.get(id=food_tag['id'])
+        ptag = PlaceTag.objects.get(id=place_tag['id'])
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        instance.alcoholtag_set.add(atag)
+        instance.foodtag_set.add(ftag)
+        instance.placetag_set.add(ptag)
+        from IPython import embed; embed()
+
+        return Response(serializer.data) 
